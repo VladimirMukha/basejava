@@ -4,14 +4,9 @@ import com.urise.webapp.model.Resume;
 
 import java.util.Arrays;
 
-/**
- * Array based storage for Resumes
- */
 public class ArrayStorage {
     private int size;
     private Resume[] storage = new Resume[10_000];
-    private boolean isResume = false;
-    private int index;
 
     public void clear() {
         Arrays.fill(storage, 0, size, null);
@@ -20,61 +15,45 @@ public class ArrayStorage {
 
     public void save(Resume resume) {
         if (resume.getUuid() != null) {
-            int i = 0;
-            while (i < size()) {
-                if (resume.getUuid().equals(storage[i].getUuid()) || size() > storage.length) {
-                    index = i;
-                    isFindResume(isResume);
-                    break;
+            int result = findResume(resume.getUuid());
+            if (result < 0) {
+                if (size == 0 || storage[size] == null && storage.length > size()) {
+                    storage[size] = resume;
+                    size++;
                 }
-                i++;
-            }
-            if (size == 0 || storage[i] == null) {
-                storage[size] = resume;
-                size++;
-            }
+            } else
+                showInfo(resume.getUuid(), result);
         }
     }
 
     public void update(Resume resume) {
         Resume newResume = new Resume();
         newResume.setUuid("new Resume");
-        for (int i = 0; i < size(); i++) {
-            if (resume.getUuid().equals(storage[i].getUuid())) {
-                isResume = true;
-                storage[i] = newResume;
-                break;
-            }
-        }
-        if (!isResume) {
-            isFindResume(true);
-        }
+        int result = findResume(resume.getUuid());
+        if (result >= 0) {
+            storage[result] = newResume;
+        } else
+            showInfo(resume.getUuid(), result);
     }
 
     public Resume get(String uuid) {
-        for (int i = 0; i < size(); i++) {
-            if (storage[i].getUuid().equals(uuid)) {
-                isResume = true;
-                return storage[i];
-            }
-        }
-        isFindResume(isResume);
+        int result = findResume(uuid);
+        if (result >= 0) {
+            return storage[result];
+        } else
+            showInfo(uuid, result);
         return null;
     }
 
     public void delete(String uuid) {
-        isResume = false;
-        for (int i = 0; i < size(); i++) {
-            if (storage[i].getUuid().equals(uuid)) {
-                isResume = true;
-                storage[i] = storage[i + 1];
-                if (size() - i >= 0) System.arraycopy(storage, i + 1, storage, i, size() - i);
-                size--;
-            }
-        }
-        if (!isResume) {
-            isFindResume(true);
-        }
+        int result = findResume(uuid);
+        if (result >= 0) {
+            storage[result] = storage[result + 1];
+            if (size() - result >= 0) System.arraycopy(storage, result +
+                    1, storage, result, size() - result);
+            size--;
+        } else
+            showInfo(uuid, result);
     }
 
     public Resume[] getAll() {
@@ -85,8 +64,17 @@ public class ArrayStorage {
         return size;
     }
 
-    private void isFindResume(boolean resume) {
-        System.out.println(String.format(resume ? "%s нет %s  " : "%s уже есть %s! : " +
-                storage[index].getUuid(), "ERROR: Резюме", " в списке"));
+    private int findResume(String uuid) {
+        for (int i = 0; i < size(); i++) {
+            if (storage[i].getUuid().equals(uuid)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private void showInfo(String uuid, int index) {
+        System.out.println(String.format(index < 0 ? "%s нет в данном %s! "
+                + uuid : "%s есть в %s :" + uuid, "Резюме", "списке"));
     }
 }
