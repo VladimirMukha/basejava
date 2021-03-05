@@ -14,46 +14,48 @@ public class ArrayStorage {
     }
 
     public void save(Resume resume) {
-        if (resume.getUuid() != null) {
-            int result = findResume(resume.getUuid());
-            if (result < 0) {
-                if (size == 0 || storage[size] == null && storage.length > size()) {
+        String uuid = resume.getUuid();
+        if (uuid != null) {
+            int index = findResume(uuid);
+            if (index < 0) {
+                if (storage.length > size) {
                     storage[size] = resume;
                     size++;
                 }
-            } else
-                showInfo(resume.getUuid(), result);
+            } else {
+                checkResume(uuid, index);
+            }
         }
     }
 
     public void update(Resume resume) {
-        Resume newResume = new Resume();
-        newResume.setUuid("new Resume");
-        int result = findResume(resume.getUuid());
-        if (result >= 0) {
-            storage[result] = newResume;
-        } else
-            showInfo(resume.getUuid(), result);
+        int index = findResume(resume.getUuid());
+        if (index >= 0) {
+            storage[index] = resume;
+        } else {
+            checkResume(resume.getUuid(), index);
+        }
     }
 
     public Resume get(String uuid) {
-        int result = findResume(uuid);
-        if (result >= 0) {
-            return storage[result];
-        } else
-            showInfo(uuid, result);
+        int index = findResume(uuid);
+        if (index >= 0) {
+            return storage[index];
+        }
+        checkResume(uuid, index);
         return null;
     }
 
     public void delete(String uuid) {
-        int result = findResume(uuid);
-        if (result >= 0) {
-            storage[result] = storage[result + 1];
-            if (size() - result >= 0) System.arraycopy(storage, result +
-                    1, storage, result, size() - result);
+        int index = findResume(uuid);
+        if (index >= 0) {
+            storage[index] = storage[index + 1];
+            if (size - index >= 0) System.arraycopy(storage, index +
+                    1, storage, index, size - index);
             size--;
-        } else
-            showInfo(uuid, result);
+        } else {
+            checkResume(uuid, index);
+        }
     }
 
     public Resume[] getAll() {
@@ -65,7 +67,7 @@ public class ArrayStorage {
     }
 
     private int findResume(String uuid) {
-        for (int i = 0; i < size(); i++) {
+        for (int i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(uuid)) {
                 return i;
             }
@@ -73,8 +75,8 @@ public class ArrayStorage {
         return -1;
     }
 
-    private void showInfo(String uuid, int index) {
+    private void checkResume(String uuid, int index) {
         System.out.println(String.format(index < 0 ? "%s нет в данном %s! "
-                + uuid : "%s есть в %s :" + uuid, "Резюме", "списке"));
+                + uuid : "%s есть в %s : " + uuid, "Резюме", "списке"));
     }
 }
