@@ -25,7 +25,7 @@ public class ArrayStorage {
                     size++;
                 }
             } else {
-                checkResume(uuid, index);
+                showErrorMessage(uuid, index);
             }
         }
     }
@@ -35,7 +35,7 @@ public class ArrayStorage {
         if (index != -1) {
             storage[index] = resume;
         } else {
-            checkResume(resume.getUuid(), index);
+            showErrorMessage(resume.getUuid(), index);
         }
     }
 
@@ -44,19 +44,17 @@ public class ArrayStorage {
         if (index != -1) {
             return storage[index];
         }
-        checkResume(uuid, index);
+        showErrorMessage(uuid, index);
         return null;
     }
 
     public void delete(String uuid) {
         int index = getIndex(uuid);
         if (index != -1) {
-            storage[index] = storage[index + 1];
-            if (size - index >= 0) System.arraycopy(storage, index +
-                    1, storage, index, size - index);
+            if (size - index >= 0) System.arraycopy(storage, index + 1, storage, index, size - index);
             size--;
         } else {
-            checkResume(uuid, index);
+            showErrorMessage(uuid, index);
         }
     }
 
@@ -77,7 +75,7 @@ public class ArrayStorage {
         return -1;
     }
 
-    private void checkResume(String uuid, int index) {
+    private void showErrorMessage(String uuid, int index) {
         System.out.println(String.format(index < 0 ? "%s нет в данном %s! "
                 + uuid : "%s есть в %s : " + uuid, "Резюме", "списке"));
     }
