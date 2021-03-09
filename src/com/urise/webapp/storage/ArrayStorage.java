@@ -4,9 +4,10 @@ import com.urise.webapp.model.Resume;
 
 import java.util.Arrays;
 
-public class ArrayStorage {
+public class ArrayStorage implements Storage {
+    private static final int STORAGE_LIMIT = 10_000;
+    private Resume[] storage = new Resume[STORAGE_LIMIT];
     private int size;
-    private Resume[] storage = new Resume[10_000];
 
     public void clear() {
         Arrays.fill(storage, 0, size, null);
@@ -18,7 +19,7 @@ public class ArrayStorage {
         if (uuid != null) {
             int index = getIndex(uuid);
             if (index == -1) {
-                if (size == storage.length) {
+                if (size == STORAGE_LIMIT) {
                     System.out.println("Место в массиве закончилось! ");
                 } else {
                     storage[size] = resume;
@@ -59,7 +60,7 @@ public class ArrayStorage {
     }
 
     public Resume[] getAll() {
-        return Arrays.copyOf(storage, size);
+        return Arrays.copyOfRange(storage, 0, size);
     }
 
     public int size() {
@@ -73,10 +74,5 @@ public class ArrayStorage {
             }
         }
         return -1;
-    }
-
-    private void showErrorMessage(String uuid, int index) {
-        System.out.println(String.format(index < 0 ? "%s нет в данном %s! "
-                + uuid : "%s есть в %s : " + uuid, "Резюме", "списке"));
     }
 }
