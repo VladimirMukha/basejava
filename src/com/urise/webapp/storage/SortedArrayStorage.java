@@ -10,6 +10,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
         if (size > STORAGE_LIMIT) {
             throw new IllegalStateException("ALARM");
         }
+
         int index = getIndex(resume.getUuid());
         if (index <= 0) {
             index = -index - 1;
