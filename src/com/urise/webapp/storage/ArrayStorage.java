@@ -4,9 +4,9 @@ import com.urise.webapp.model.Resume;
 
 public class ArrayStorage extends AbstractArrayStorage {
 
-    protected void   insert(Resume resume, int index) {
+    protected void insert(Resume resume, int index) {
         storage[size] = resume;
-            size++;
+        size++;
     }
 
     protected int getIndex(String uuid) {
