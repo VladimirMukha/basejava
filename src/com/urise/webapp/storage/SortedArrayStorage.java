@@ -6,20 +6,11 @@ import java.util.Arrays;
 
 public class SortedArrayStorage extends AbstractArrayStorage {
 
-    public void save(Resume resume) {
-        if (resume.getUuid() != null) {
-            if (size > STORAGE_LIMIT) {
-                throw new IllegalStateException("ALARM");
-            }
-            int index = getIndex(resume.getUuid());
-            if (index <= 0) {
-                index = -index - 1;
-                System.arraycopy(storage, index, storage, index + 1, size - index);
-                storage[index] = resume;
-                size++;
-            } else
-                showErrorMessage(resume.getUuid(), index);
-        }
+    protected void insert(Resume resume, int index) {
+        index = -index - 1;
+        System.arraycopy(storage, index, storage, index + 1, size - index);
+        storage[index] = resume;
+        size++;
     }
 
     @Override

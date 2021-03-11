@@ -4,22 +4,9 @@ import com.urise.webapp.model.Resume;
 
 public class ArrayStorage extends AbstractArrayStorage {
 
-    @Override
-    public void save(Resume resume) {
-        String uuid = resume.getUuid();
-        if (uuid != null) {
-            int index = getIndex(uuid);
-            if (index < 0) {
-                if (size == STORAGE_LIMIT) {
-                    System.out.println("Место в массиве закончилось! ");
-                } else {
-                    storage[size] = resume;
-                    size++;
-                }
-            } else {
-                showErrorMessage(uuid, index);
-            }
-        }
+    protected void   insert(Resume resume, int index) {
+        storage[size] = resume;
+            size++;
     }
 
     protected int getIndex(String uuid) {
