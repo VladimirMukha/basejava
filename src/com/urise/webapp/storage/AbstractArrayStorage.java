@@ -5,7 +5,7 @@ import com.urise.webapp.model.Resume;
 import java.util.Arrays;
 
 public abstract class AbstractArrayStorage implements Storage {
-    protected static final int STORAGE_LIMIT = 10_000;
+    protected static final int STORAGE_LIMIT = 3;
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size;
 
@@ -32,7 +32,7 @@ public abstract class AbstractArrayStorage implements Storage {
 
     public void update(Resume resume) {
         int index = getIndex(resume.getUuid());
-        if (index != -1) {
+        if (index >= 0) {
             storage[index] = resume;
         } else {
             showErrorMessage(resume.getUuid(), index);
@@ -43,6 +43,7 @@ public abstract class AbstractArrayStorage implements Storage {
         int index = getIndex(uuid);
         if (index >= 0) {
             remove(index);
+            storage[size - 1] = null;
             size--;
         } else {
             showErrorMessage(uuid, index);
