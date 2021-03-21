@@ -17,9 +17,4 @@ public interface Storage {
     Resume[] getAll();
 
     int size();
-
-    default void showErrorMessage(String uuid, int index) {
-        System.out.println(String.format(index < 0 ? "%s нет в данном %s! "
-                + uuid : "%s есть в %s : " + uuid, "Резюме", "списке"));
-    }
 }

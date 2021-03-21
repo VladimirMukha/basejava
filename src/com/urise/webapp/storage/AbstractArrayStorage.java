@@ -1,11 +1,14 @@
 package com.urise.webapp.storage;
 
+import com.urise.webapp.exception.ExistStorageException;
+import com.urise.webapp.exception.NotExistStorageException;
+import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
 
 import java.util.Arrays;
 
 public abstract class AbstractArrayStorage implements Storage {
-    protected static final int STORAGE_LIMIT = 3;
+    protected static final int STORAGE_LIMIT = 10_000;
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size;
 
@@ -18,16 +21,12 @@ public abstract class AbstractArrayStorage implements Storage {
         String uuid = resume.getUuid();
         int index = getIndex(uuid);
         if (size == STORAGE_LIMIT) {
-            System.out.println("Место в массиве закончилось! ");
-            return;
-        }
-        if (uuid != null) {
-            if (index < 0) {
-                insert(resume, index);
-                size++;
-            } else
-                showErrorMessage(uuid, index);
-        }
+            throw new StorageException("Storage overflow", resume.getUuid());
+        } else if (index >= 0) {
+            throw new ExistStorageException(resume.getUuid());
+        } else
+            insert(resume, index);
+        size++;
     }
 
     public void update(Resume resume) {
@@ -35,7 +34,7 @@ public abstract class AbstractArrayStorage implements Storage {
         if (index >= 0) {
             storage[index] = resume;
         } else {
-            showErrorMessage(resume.getUuid(), index);
+            throw new NotExistStorageException(resume.getUuid());
         }
     }
 
@@ -46,7 +45,7 @@ public abstract class AbstractArrayStorage implements Storage {
             storage[size - 1] = null;
             size--;
         } else {
-            showErrorMessage(uuid, index);
+            throw new ExistStorageException(uuid);
         }
     }
 
@@ -55,8 +54,7 @@ public abstract class AbstractArrayStorage implements Storage {
         if (index >= 0) {
             return storage[index];
         }
-        showErrorMessage(uuid, index);
-        return null;
+        throw new NotExistStorageException(uuid);
     }
 
     public Resume[] getAll() {
