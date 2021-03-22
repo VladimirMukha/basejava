@@ -14,13 +14,11 @@ public class MainReflection {
         field.setAccessible(true);
         System.out.println(field.getName());
         System.out.println(field.get(resume));
-
         field.set(resume, "new_Resume");
         System.out.println(resume);
 
         Annotation[] annotations = resume.getClass().getAnnotations();
         System.out.println(annotations);
-
         Method method = resume.getClass().getDeclaredMethod("toString");
         System.out.println(method.invoke(resume));
     }
