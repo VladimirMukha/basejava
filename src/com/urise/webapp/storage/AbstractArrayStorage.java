@@ -45,7 +45,7 @@ public abstract class AbstractArrayStorage implements Storage {
             storage[size - 1] = null;
             size--;
         } else {
-            throw new ExistStorageException(uuid);
+            throw new NotExistStorageException(uuid);
         }
     }
 
