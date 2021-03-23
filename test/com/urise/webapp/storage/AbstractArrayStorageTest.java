@@ -15,6 +15,7 @@ public abstract class AbstractArrayStorageTest {
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
+    private static final String UUID_4 = "uuid4";
 
     public AbstractArrayStorageTest(Storage storage) {
         this.storage = storage;
@@ -56,14 +57,18 @@ public abstract class AbstractArrayStorageTest {
 
     @Test(expected = NotExistStorageException.class)
     public void updateNotExist() {
-        storage.get("new Resume");
+        Resume resume = new Resume(UUID_4);
+        storage.update(resume);
     }
 
     @Test
     public void delete() {
         storage.delete(UUID_1);
-        Resume[] listResume = storage.getAll();
-        Assert.assertArrayEquals(listResume, storage.getAll());
+        try {
+            storage.get(UUID_1);
+        } catch (NotExistStorageException e) {
+            e.getMessage();
+        }
         Assert.assertEquals(2, storage.size());
     }
 
@@ -80,16 +85,13 @@ public abstract class AbstractArrayStorageTest {
 
     @Test(expected = NotExistStorageException.class)
     public void getNotExist() {
-        storage.get("dummy");
+        storage.get(UUID_4);
     }
 
     @Test
     public void getAll() {
-        Resume[] object = new Resume[storage.size()];
-        object[0] = new Resume(UUID_1);
-        object[1] = new Resume(UUID_2);
-        object[2] = new Resume(UUID_3);
-        assertArrayEquals(object, storage.getAll());
+        Resume[] expectedResumes = {new Resume(UUID_1), new Resume(UUID_2), new Resume(UUID_3)};
+        assertArrayEquals(expectedResumes, storage.getAll());
     }
 
     @Test
@@ -103,7 +105,7 @@ public abstract class AbstractArrayStorageTest {
             for (int i = 4; i <= AbstractArrayStorage.STORAGE_LIMIT; i++) {
                 storage.save(new Resume());
             }
-        } catch (RuntimeException e) {
+        } catch (StorageException e) {
             fail("Переполнение произошло раньше времени!");
         }
         storage.save(new Resume());
