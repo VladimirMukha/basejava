@@ -1,5 +1,7 @@
 package com.urise.webapp;
 
+import java.util.*;
+
 public class MainString {
 
     public static void main(String[] args) {
@@ -9,6 +11,7 @@ public class MainString {
         for (String str : strArray) {
             builder.append(str).append(",");
         }
+
         System.out.println(builder.deleteCharAt(9).append("!"));
         String str = "abc";
         String str1 = "a";
