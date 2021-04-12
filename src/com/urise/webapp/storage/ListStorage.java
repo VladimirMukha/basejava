@@ -9,7 +9,6 @@ class ListStorage extends AbstractStorage {
 
     private static final List<Resume> RESUME_LIST = new ArrayList<>();
 
-
     @Override
     protected void toSave(Resume resume, Object index) {
         RESUME_LIST.add(resume);
@@ -41,7 +40,7 @@ class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected Resume[] toGetAll() {
+    public Resume[] getAll() {
         Resume[] resume = new Resume[RESUME_LIST.size()];
         for (int i = 0; i < RESUME_LIST.size(); i++) {
             resume[i] = RESUME_LIST.get(i);
