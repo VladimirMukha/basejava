@@ -49,4 +49,9 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     public int size() {
         return size;
     }
+
+    @Override
+    protected boolean isExist(Object index) {
+        return ((Integer) index >= 0);
+    }
 }

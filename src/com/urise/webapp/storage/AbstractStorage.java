@@ -14,12 +14,15 @@ public abstract class AbstractStorage implements Storage {
 
     protected abstract void toDelete(Object index);
 
-    protected abstract Integer searchIndex(String uuid);
+    protected abstract Object searchIndex(String uuid);
+
+    protected abstract boolean isExist(Object index);
 
     @Override
     public void save(Resume resume) {
-
-        toSave(resume, getExistSearchIndex(resume.getUuid()));
+        if (resume != null) {
+            toSave(resume, getExistSearchIndex(resume.getUuid()));
+        }
     }
 
     @Override
@@ -37,17 +40,18 @@ public abstract class AbstractStorage implements Storage {
         toDelete(getNotExitSearchIndex(uuid));
     }
 
-    private int getExistSearchIndex(String uuid) {
-        int index = searchIndex(uuid);
-        if (index >= 0) {
+    private Object getExistSearchIndex(String uuid) {
+        Object index = searchIndex(uuid);
+        if (isExist(index)) {
+
             throw new ExistStorageException(uuid);
         }
         return index;
     }
 
-    private int getNotExitSearchIndex(String uuid) {
-        int index = searchIndex(uuid);
-        if (index < 0) {
+    private Object getNotExitSearchIndex(String uuid) {
+        Object index = searchIndex(uuid);
+        if (!isExist(index)) {
             throw new NotExistStorageException(uuid);
         }
         return index;

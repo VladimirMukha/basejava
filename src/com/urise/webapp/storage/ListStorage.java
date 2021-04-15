@@ -21,7 +21,7 @@ public class ListStorage extends AbstractStorage {
                 return i;
             }
         }
-        return -1;
+        return null;
     }
 
     @Override
@@ -46,6 +46,11 @@ public class ListStorage extends AbstractStorage {
             resume[i] = resumeArrayList.get(i);
         }
         return resume;
+    }
+
+    @Override
+    protected boolean isExist(Object index) {
+        return index != null;
     }
 
     @Override
