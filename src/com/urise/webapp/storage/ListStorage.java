@@ -5,19 +5,19 @@ import com.urise.webapp.model.Resume;
 import java.util.ArrayList;
 import java.util.List;
 
-class ListStorage extends AbstractStorage {
+public class ListStorage extends AbstractStorage {
 
-    private static final List<Resume> RESUME_LIST = new ArrayList<>();
+    private final List<Resume> resumeArrayList = new ArrayList<>();
 
     @Override
     protected void toSave(Resume resume, Object index) {
-        RESUME_LIST.add(resume);
+        resumeArrayList.add(resume);
     }
 
     @Override
     protected Integer searchIndex(String uuid) {
-        for (int i = 0; i < RESUME_LIST.size(); i++) {
-            if (RESUME_LIST.get(i).getUuid().equals(uuid)) {
+        for (int i = 0; i < resumeArrayList.size(); i++) {
+            if (resumeArrayList.get(i).getUuid().equals(uuid)) {
                 return i;
             }
         }
@@ -26,35 +26,35 @@ class ListStorage extends AbstractStorage {
 
     @Override
     protected Resume toGet(Object searchIndex) {
-        return RESUME_LIST.get((Integer) searchIndex);
+        return resumeArrayList.get((Integer) searchIndex);
     }
 
     @Override
     protected void toDelete(Object index) {
-        RESUME_LIST.remove(((Integer) index).intValue());
+        resumeArrayList.remove(((Integer) index).intValue());
     }
 
     @Override
     protected void toUpdate(Resume resume, Object index) {
-        RESUME_LIST.set((Integer) index, resume);
+        resumeArrayList.set((Integer) index, resume);
     }
 
     @Override
     public Resume[] getAll() {
-        Resume[] resume = new Resume[RESUME_LIST.size()];
-        for (int i = 0; i < RESUME_LIST.size(); i++) {
-            resume[i] = RESUME_LIST.get(i);
+        Resume[] resume = new Resume[resumeArrayList.size()];
+        for (int i = 0; i < resumeArrayList.size(); i++) {
+            resume[i] = resumeArrayList.get(i);
         }
         return resume;
     }
 
     @Override
     public int size() {
-        return RESUME_LIST.size();
+        return resumeArrayList.size();
     }
 
     @Override
     public void clear() {
-        RESUME_LIST.clear();
+        resumeArrayList.clear();
     }
 }

@@ -16,9 +16,9 @@ public abstract class AbstractStorage implements Storage {
 
     protected abstract Integer searchIndex(String uuid);
 
-
     @Override
     public void save(Resume resume) {
+
         toSave(resume, getExistSearchIndex(resume.getUuid()));
     }
 
