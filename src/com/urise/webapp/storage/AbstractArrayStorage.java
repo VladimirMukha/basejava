@@ -15,6 +15,8 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     protected abstract void remove(Integer index);
 
+    protected abstract Integer searchIndex(String uuid);
+
     public void clear() {
         Arrays.fill(storage, 0, size, null);
         size = 0;
@@ -55,7 +57,4 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     protected boolean isExist(Object index) {
         return ((Integer) index >= 0);
     }
-
-    @Override
-    protected abstract Integer searchIndex(String uuid);
 }
