@@ -6,6 +6,8 @@ import com.urise.webapp.model.Resume;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -104,6 +106,7 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void size() {
+    
         assertEquals(3, storage.size());
     }
 }
