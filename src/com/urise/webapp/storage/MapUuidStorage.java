@@ -4,33 +4,33 @@ import com.urise.webapp.model.Resume;
 
 import java.util.*;
 
-public class MapUuidStorage extends AbstractStorage {
+public class MapUuidStorage extends AbstractStorage<String> {
 
-   private final Map<String, Resume> mapResume = new LinkedHashMap<>();
+    private final Map<String, Resume> mapResume = new LinkedHashMap<>();
 
     @Override
-    protected void toSave(Resume resume, Object index) {
-        mapResume.put( (String) index, resume);
+    protected void toSave(Resume resume, String index) {
+        mapResume.put(index, resume);
     }
 
     @Override
-    protected void toUpdate(Resume resume, Object searchKey) {
-        mapResume.put((String) searchKey, resume);
+    protected void toUpdate(Resume resume, String searchKey) {
+        mapResume.put(searchKey, resume);
     }
 
     @Override
-    protected Resume toGet(Object searchKey) {
-        return  mapResume.get((String) searchKey);
+    protected Resume toGet(String searchKey) {
+        return mapResume.get(searchKey);
     }
 
     @Override
-    protected void toDelete(Object index) {
-        mapResume.remove((String)index);
+    protected void toDelete(String index) {
+        mapResume.remove(index);
     }
 
     @Override
-    protected Object searchIndex(String uuid) {
-      return uuid;
+    protected String searchIndex(String uuid) {
+        return uuid;
     }
 
     @Override
@@ -40,11 +40,11 @@ public class MapUuidStorage extends AbstractStorage {
 
     @Override
     protected List<Resume> toCopyAll() {
-        return new ArrayList<>(mapResume.values()) ;
+        return new ArrayList<>(mapResume.values());
     }
 
     @Override
-    protected boolean isExist(Object index) {
+    protected boolean isExist(String index) {
         return mapResume.containsKey(index);
     }
 

@@ -5,18 +5,18 @@ import com.urise.webapp.model.Resume;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListStorage extends AbstractStorage {
+public class ListStorage extends AbstractStorage<Integer> {
 
     private final List<Resume> resumeArrayList = new ArrayList<>();
 
     @Override
-    protected void toSave(Resume resume, Object index) {
+    protected void toSave(Resume resume, Integer index) {
         resumeArrayList.add(resume);
     }
 
     @Override
     protected Integer searchIndex(String uuid) {
-        for (int i = 0; i < resumeArrayList.size(); i++) {
+        for (var i = 0; i < resumeArrayList.size(); i++) {
             if (resumeArrayList.get(i).getUuid().equals(uuid)) {
                 return i;
             }
@@ -25,18 +25,18 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected Resume toGet(Object searchIndex) {
-        return resumeArrayList.get((Integer) searchIndex);
+    protected Resume toGet(Integer searchIndex) {
+        return resumeArrayList.get(searchIndex);
     }
 
     @Override
-    protected void toDelete(Object index) {
-        resumeArrayList.remove(((Integer) index).intValue());
+    protected void toDelete(Integer index) {
+        resumeArrayList.remove((index).intValue());
     }
 
     @Override
-    protected void toUpdate(Resume resume, Object index) {
-        resumeArrayList.set((Integer) index, resume);
+    protected void toUpdate(Resume resume, Integer index) {
+        resumeArrayList.set(index, resume);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean isExist(Object index) {
+    protected boolean isExist(Integer index) {
         return index != null;
     }
 
