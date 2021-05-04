@@ -3,18 +3,18 @@ package com.urise.webapp.model;
 import java.util.List;
 import java.util.Objects;
 
-public class Contact extends Section {
-    List<ContactInformation> list;
+public class Contact extends AbstractSection {
+    List<Experience> list;
 
-    public Contact(List<ContactInformation> list) {
+    public Contact(List<Experience> list) {
         this.list = list;
     }
 
-    public List<ContactInformation> getList() {
+    public List<Experience> getList() {
         return list;
     }
 
-    public void setList(List<ContactInformation> list) {
+    public void setList(List<Experience> list) {
         this.list = list;
     }
 

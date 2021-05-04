@@ -3,10 +3,10 @@ package com.urise.webapp.model;
 import java.util.List;
 import java.util.Objects;
 
-public class SectionList extends Section {
+public class ListSection extends AbstractSection {
     private List<String> textContent;
 
-    public SectionList(List<String> textContent) {
+    public ListSection(List<String> textContent) {
         this.textContent = textContent;
     }
 
@@ -20,7 +20,7 @@ public class SectionList extends Section {
 
     @Override
     public String toString() {
-        return "SectionList{" +
+        return "ListSection{" +
                 "textContent=" + textContent +
                 '}';
     }
@@ -29,7 +29,7 @@ public class SectionList extends Section {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SectionList that = (SectionList) o;
+        ListSection that = (ListSection) o;
         return Objects.equals(textContent, that.textContent);
     }
 

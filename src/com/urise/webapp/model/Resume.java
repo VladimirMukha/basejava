@@ -1,5 +1,7 @@
 package com.urise.webapp.model;
 
+import javax.swing.*;
+import java.util.EnumMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
@@ -7,8 +9,8 @@ import java.util.UUID;
 public class Resume {
     private final String uuid;
     private final String fullName;
-    public Map<SectionType, Section> mapSections;
-    public Map<ContactType, String> mapContacts;
+    private final Map<SectionType, AbstractSection> mapSections = new EnumMap<>(SectionType.class);
+    private final Map<ContactType, String> mapContacts = new EnumMap<>(ContactType.class);
 
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
@@ -29,9 +31,38 @@ public class Resume {
         return fullName;
     }
 
+    public Map<SectionType, AbstractSection> getMapSections() {
+        return mapSections;
+    }
+
+    public Map<ContactType, String> getMapContacts() {
+        return mapContacts;
+    }
+
+    public String getContact(ContactType contactType) {
+        return mapContacts.get(contactType);
+    }
+
+    public AbstractSection getSection(SectionType sectionType) {
+        return mapSections.get(sectionType);
+    }
+
+    public void addContact(ContactType contactType, String contact) {
+        mapContacts.put(contactType, contact);
+    }
+
+    public void addSection(SectionType sectionType, AbstractSection section) {
+        mapSections.put(sectionType, section);
+    }
+
     @Override
     public String toString() {
-        return fullName + " " + uuid;
+        return "Resume{" +
+                "uuid='" + uuid + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", mapSections=" + mapSections +
+                ", mapContacts=" + mapContacts +
+                '}';
     }
 
     @Override
@@ -39,12 +70,14 @@ public class Resume {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Resume resume = (Resume) o;
-        if (!resume.fullName.equals(fullName)) return false;
-        return uuid.equals(resume.uuid);
+        return Objects.equals(uuid, resume.uuid) &&
+                Objects.equals(fullName, resume.fullName) &&
+                Objects.equals(mapSections, resume.mapSections) &&
+                Objects.equals(mapContacts, resume.mapContacts);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(uuid, fullName);
+        return Objects.hash(uuid, fullName, mapSections, mapContacts);
     }
 }
