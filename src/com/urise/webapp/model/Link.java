@@ -4,8 +4,8 @@ import java.util.Objects;
 
 public class Link {
 
-    String url;
-    String text;
+    private String url;
+    private String text;
 
     public Link(String url, String type) {
         this.url = url;
@@ -40,5 +40,13 @@ public class Link {
     @Override
     public int hashCode() {
         return Objects.hash(url, text);
+    }
+
+    @Override
+    public String toString() {
+        return "Link{" +
+                "url='" + url + '\'' +
+                ", text='" + text + '\'' +
+                '}';
     }
 }
