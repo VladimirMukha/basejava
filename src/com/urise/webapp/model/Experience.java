@@ -1,20 +1,35 @@
 package com.urise.webapp.model;
 
-import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class Experience {
-    private String title;
-    private LocalDate startDate;
-    private LocalDate endDate;
-    private String description;
     private Link link;
+    private String title;
+    private String description;
+    private ListDate listDateOne;
+    private ListDate listDateTwo;
+    private Organization organization;
+    private ListDate[] arrayList;
 
-    public Experience(String title, LocalDate startDate, LocalDate endDate, String description, Link link) {
-        this.title = title;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.description = description;
+    public Experience(String name, String url, ListDate... arrayList) {
+        link = new Link(name, url);
+        this.arrayList = arrayList;
+    }
+
+    public Experience(String name, String url, ListDate listDateOne, ListDate listDateTwo, Organization organization) {
+        link = new Link(name, url);
+        this.listDateOne = listDateOne;
+        this.listDateTwo = listDateTwo;
+        this.organization = organization;
+
+    }
+
+    public Link getLink() {
+        return link;
+    }
+
+    public void setLink(Link link) {
         this.link = link;
     }
 
@@ -26,22 +41,6 @@ public class Experience {
         this.title = title;
     }
 
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
-    }
-
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -50,12 +49,36 @@ public class Experience {
         this.description = description;
     }
 
-    public Link getLink() {
-        return link;
+    public ListDate getListDateOne() {
+        return listDateOne;
     }
 
-    public void setLink(Link link) {
-        this.link = link;
+    public void setListDateOne(ListDate listDateOne) {
+        this.listDateOne = listDateOne;
+    }
+
+    public ListDate getListDateTwo() {
+        return listDateTwo;
+    }
+
+    public void setListDateTwo(ListDate listDateTwo) {
+        this.listDateTwo = listDateTwo;
+    }
+
+    public Organization getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
+    }
+
+    public ListDate[] getArrayList() {
+        return arrayList;
+    }
+
+    public void setArrayList(ListDate[] arrayList) {
+        this.arrayList = arrayList;
     }
 
     @Override
@@ -63,26 +86,30 @@ public class Experience {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Experience that = (Experience) o;
-        return Objects.equals(title, that.title) &&
-                Objects.equals(startDate, that.startDate) &&
-                Objects.equals(endDate, that.endDate) &&
+        return Objects.equals(link, that.link) &&
+                Objects.equals(title, that.title) &&
                 Objects.equals(description, that.description) &&
-                Objects.equals(link, that.link);
+                Objects.equals(listDateOne, that.listDateOne) &&
+                Objects.equals(listDateTwo, that.listDateTwo) &&
+                Objects.equals(organization, that.organization) &&
+                Arrays.equals(arrayList, that.arrayList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, startDate, endDate, description, link);
+        int result = Objects.hash(link, title, description, listDateOne, listDateTwo, organization);
+        result = 31 * result + Arrays.hashCode(arrayList);
+        return result;
     }
 
     @Override
     public String toString() {
         return "Experience{" +
-                "title='" + title + '\'' +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", description='" + description + '\'' +
-                ", link=" + link +
+                "link=" + link +
+                ", listDateOne=" + listDateOne +
+                ", listDateTwo=" + listDateTwo +
+                ", organization=" + organization +
+
                 '}';
     }
 }

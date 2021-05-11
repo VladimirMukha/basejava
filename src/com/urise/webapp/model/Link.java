@@ -4,12 +4,14 @@ import java.util.Objects;
 
 public class Link {
 
+    private String name;
     private String url;
-    private String text;
 
-    public Link(String url, String type) {
+    public Link(String name, String url) {
+        Objects.requireNonNull(name, "name most not be null");
+        Objects.requireNonNull(name, "url most not be null");
+        this.name = name;
         this.url = url;
-        this.text = type;
     }
 
     public String getUrl() {
@@ -20,12 +22,12 @@ public class Link {
         this.url = url;
     }
 
-    public String getText() {
-        return text;
+    public String getName() {
+        return name;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
@@ -34,19 +36,19 @@ public class Link {
         if (o == null || getClass() != o.getClass()) return false;
         Link link = (Link) o;
         return Objects.equals(url, link.url) &&
-                Objects.equals(text, link.text);
+                Objects.equals(name, link.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(url, text);
+        return Objects.hash(url, name);
     }
 
     @Override
     public String toString() {
         return "Link{" +
-                "url='" + url + '\'' +
-                ", text='" + text + '\'' +
+                "name='" + name + '\'' +
+                ", url='" + url + '\'' +
                 '}';
     }
 }

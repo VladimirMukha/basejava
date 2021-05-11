@@ -2,12 +2,15 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.exception.ExistStorageException;
 import com.urise.webapp.exception.NotExistStorageException;
-import com.urise.webapp.model.Resume;
+import com.urise.webapp.model.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.time.Month;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -21,9 +24,17 @@ public abstract class AbstractStorageTest {
     private static final String UUID_3 = "uuid3";
     private static final String UUID_4 = "uuid4";
 
-    private final Resume RESUME_1 = new Resume(UUID_1, "resume1");
-    private final Resume RESUME_2 = new Resume(UUID_2, "resume2");
-    private final Resume RESUME_3 = new Resume(UUID_3, "resume3");
+    private static final Resume RESUME_1;
+    private static final Resume RESUME_2;
+    private static final Resume RESUME_3;
+    private static final Resume RESUME_4;
+
+    static {
+        RESUME_1 = new Resume(UUID_1, "name_1");
+        RESUME_2 = new Resume(UUID_2, "name_2");
+        RESUME_3 = new Resume(UUID_3, "name_3");
+        RESUME_4 = new Resume(UUID_4, "name_4");
+    }
 
     public AbstractStorageTest(Storage storage) {
         this.storage = storage;
@@ -35,6 +46,19 @@ public abstract class AbstractStorageTest {
         storage.save(RESUME_1);
         storage.save(RESUME_2);
         storage.save(RESUME_3);
+
+        RESUME_1.addContact(ContactType.EMAIL, "mail@");
+        RESUME_1.addContact(ContactType.TELEPHONE, "5279578");
+        RESUME_1.addSection(SectionType.PERSONAL, new TextSection("Аналитический склад ума, сильная логика"));
+        RESUME_1.addSection(SectionType.OBJECTIVE, new ListSection(Arrays.asList("Ведущий стажировок и корпоративного обучения")));
+        RESUME_1.addSection(SectionType.ACHIEVEMENT, new TextSection("Реализация c нуля Rich Internet Application"));
+        RESUME_1.addSection(SectionType.QUALIFICATION, new ListSection(Arrays.asList("DB: PostgreSQL(наследование, pgplsql")));
+        RESUME_1.addSection(SectionType.EDUCATION, new ListSection(Arrays.asList("Functional Programming")));
+
+        RESUME_1.addSection(SectionType.EDUCATION, new Organization(Collections.singletonList(new Experience("Institute", null,
+                new ListDate(1996, Month.JANUARY, 2000, Month.DECEMBER, "aspirant", null),
+                new ListDate(2001, Month.MARCH, 2005, Month.JANUARY, "student", "it facultet"),
+                new Organization("Organization12", "http://Organization12.ru")))));
     }
 
     @Test
