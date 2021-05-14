@@ -9,7 +9,6 @@ public class Link {
 
     public Link(String name, String url) {
         Objects.requireNonNull(name, "name most not be null");
-        Objects.requireNonNull(name, "url most not be null");
         this.name = name;
         this.url = url;
     }
@@ -46,8 +45,7 @@ public class Link {
 
     @Override
     public String toString() {
-        return "Link{" +
-                "name='" + name + '\'' +
+        return " : " + name + '\'' +
                 ", url='" + url + '\'' +
                 '}';
     }

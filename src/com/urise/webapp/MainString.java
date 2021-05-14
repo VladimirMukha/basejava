@@ -1,7 +1,5 @@
 package com.urise.webapp;
 
-import java.util.*;
-
 public class MainString {
 
     public static void main(String[] args) {

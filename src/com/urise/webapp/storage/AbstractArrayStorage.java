@@ -26,7 +26,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
         if (size == STORAGE_LIMIT) {
             throw new StorageException("Storage overflow", resume.getUuid());
         }
-        insert(resume,  index);
+        insert(resume, index);
         size++;
     }
 
@@ -35,7 +35,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
     }
 
     public void toDelete(Integer index) {
-        remove( index);
+        remove(index);
         storage[size - 1] = null;
         size--;
     }
@@ -55,6 +55,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
 
     @Override
     protected boolean isExist(Integer index) {
-        return ( index >= 0);
+        return (index >= 0);
     }
 }

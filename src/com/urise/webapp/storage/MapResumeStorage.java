@@ -2,7 +2,10 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.model.Resume;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MapResumeStorage extends AbstractStorage<Resume> {
     private final Map<String, Resume> storageMap = new LinkedHashMap<>();
@@ -24,12 +27,12 @@ public class MapResumeStorage extends AbstractStorage<Resume> {
 
     @Override
     protected Resume toGet(Resume searchKey) {
-        return  searchKey;
+        return searchKey;
     }
 
     @Override
     protected void toDelete(Resume searchKey) {
-        storageMap.remove( searchKey.getUuid());
+        storageMap.remove(searchKey.getUuid());
     }
 
     @Override

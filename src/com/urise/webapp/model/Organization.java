@@ -1,22 +1,23 @@
 package com.urise.webapp.model;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class Organization extends AbstractSection {
+public class Organization {
     private List<Experience> list;
-    private String name;
-    private String url;
+    private final Link homePage;
 
-    public Organization(List<Experience> list) {
+    public Organization(Link link, List<Experience> list) {
         Objects.requireNonNull(list, "list : most not be null");
+        this.homePage = link;
         this.list = list;
     }
 
-    public Organization(String name, String url) {
-        this.name = name;
-        this.url = url;
+    public Organization(String name, String url, Experience... lists) {
+        this(new Link(name, url), Arrays.asList(lists));
     }
+
 
     public List<Experience> getList() {
         return list;
@@ -32,8 +33,7 @@ public class Organization extends AbstractSection {
         if (o == null || getClass() != o.getClass()) return false;
         Organization that = (Organization) o;
         return Objects.equals(list, that.list) &&
-                Objects.equals(name, that.name) &&
-                Objects.equals(url, that.url);
+                Objects.equals(homePage, that.homePage);
     }
 
     @Override
@@ -43,10 +43,8 @@ public class Organization extends AbstractSection {
 
     @Override
     public String toString() {
-        return "Organization{" +
+        return "Organization {  homePage" + homePage +
                 "list=" + list +
-                ", name='" + name + '\'' +
-                ", url='" + url + '\'' +
-                '}';
+                " }";
     }
 }
