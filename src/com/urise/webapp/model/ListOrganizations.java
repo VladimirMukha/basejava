@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class ListOrganizations extends AbstractSection {
+    private static final long serialVersionUID = 1L;
+
     private List<Organization> organizationList;
 
     public ListOrganizations(List<Organization> organizations) {

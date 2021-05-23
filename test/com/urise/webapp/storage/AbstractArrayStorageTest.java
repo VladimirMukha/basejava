@@ -4,9 +4,12 @@ import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
 import org.junit.Test;
 
+import java.io.File;
+
 import static org.junit.Assert.fail;
 
 public abstract class AbstractArrayStorageTest extends AbstractStorageTest {
+    protected File storageDir = new File("d:/fileNew");
 
     public AbstractArrayStorageTest(Storage storage) {
         super(storage);

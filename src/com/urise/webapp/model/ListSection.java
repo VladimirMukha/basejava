@@ -1,13 +1,20 @@
 package com.urise.webapp.model;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 public class ListSection extends AbstractSection {
+    private static final long serialVersionUID = 1L;
+
     private List<String> textContent;
 
     public ListSection(List<String> textContent) {
         this.textContent = textContent;
+    }
+
+    public ListSection(String... textContent) {
+        this(Arrays.asList(textContent));
     }
 
     public List<String> getTextContent() {
