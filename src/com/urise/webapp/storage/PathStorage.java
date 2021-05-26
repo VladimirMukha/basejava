@@ -30,7 +30,7 @@ public class PathStorage extends AbstractStorage<Path> {
 
     @Override
     protected Path searchIndex(String uuid) {
-        return directory.resolve(uuid);
+        return directory.resolve(uuid);   //объясните пожалуйста, почему мы тут используем именно этот метод?
     }
 
     @Override
