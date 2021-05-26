@@ -4,7 +4,7 @@ import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class FileTest {
+public class WalkerFile {
     static String count = "";
 
     public static void main(String[] args) {
@@ -19,12 +19,12 @@ public class FileTest {
         for (File file : filesList) {
             if (file.isDirectory()) {
                 System.out.println(count + "dir:" + file.getName());
-                count += "-";
+                count += "--";
                 foundDeepFiles(file);
             } else if (file.isFile()) {
-                count = "";
-                System.out.println("file:" + file.getName());
+                System.out.println(count + "file:" + file.getName());
             }
         }
+        count = "";
     }
 }
