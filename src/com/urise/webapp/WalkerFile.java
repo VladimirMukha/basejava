@@ -1,30 +1,30 @@
 package com.urise.webapp;
 
+import com.urise.webapp.exception.StorageException;
+
 import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class WalkerFile {
-    static String count = "";
-
     public static void main(String[] args) {
-        Path parent = Paths.get("d:/test/basejava/src");
+        File dir = new File("D:\\test\\basejava\\src");
 
-        foundDeepFiles(new File(parent.toString()));
+        foundDeepFiles(dir, "");
     }
 
-    private static void foundDeepFiles(File dir) {
+    private static void foundDeepFiles(File dir, String space) {
         File[] filesList = dir.listFiles();
+
+        if (filesList == null) {
+            throw new StorageException("file error", null, null);
+        }
 
         for (File file : filesList) {
             if (file.isDirectory()) {
-                System.out.println(count + "dir:" + file.getName());
-                count += "--";
-                foundDeepFiles(file);
+                System.out.println(space + "D:" + file.getName());
+                foundDeepFiles(file, space + "  ");
             } else if (file.isFile()) {
-                System.out.println(count + "file:" + file.getName());
+                System.out.println(space + "F:" + file.getName());
             }
         }
-        count = "";
     }
 }

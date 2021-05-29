@@ -17,12 +17,12 @@ import java.util.stream.Stream;
 
 public class PathStorage extends AbstractStorage<Path> {
     private final Path directory;
-    protected final StrategyInterface objectStream;
+    protected final StrategyInterface pathStrategy;
 
     public PathStorage(String dir, StrategyInterface objectStream) {
         Objects.requireNonNull(dir, "directory must not be null");
         directory = Paths.get(dir);
-        this.objectStream = objectStream;
+        this.pathStrategy = objectStream;
         if (!Files.isDirectory(directory) || !Files.isWritable(directory)) {
             throw new IllegalArgumentException(dir + "is not directory or not  writable");
         }
@@ -30,7 +30,7 @@ public class PathStorage extends AbstractStorage<Path> {
 
     @Override
     protected Path searchIndex(String uuid) {
-        return directory.resolve(uuid);   //объясните пожалуйста, почему мы тут используем именно этот метод?
+        return directory.resolve(uuid);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class PathStorage extends AbstractStorage<Path> {
     @Override
     protected void toUpdate(Resume resume, Path path) {
         try {
-            objectStream.doWrite(resume, new BufferedOutputStream(Files.newOutputStream(path)));
+            pathStrategy.doWrite(resume, new BufferedOutputStream(Files.newOutputStream(path)));
         } catch (IOException e) {
             throw new StorageException("update error", resume.getUuid(), e);
         }
@@ -55,7 +55,7 @@ public class PathStorage extends AbstractStorage<Path> {
     @Override
     protected Resume toGet(Path path) {
         try {
-            return objectStream.doRead(new BufferedInputStream(Files.newInputStream(path)));
+            return pathStrategy.doRead(new BufferedInputStream(Files.newInputStream(path)));
         } catch (IOException e) {
             throw new StorageException("error read file", path.getFileName().toString(), e);
         }
