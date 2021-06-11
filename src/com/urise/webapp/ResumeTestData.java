@@ -4,7 +4,6 @@ import com.urise.webapp.model.*;
 import com.urise.webapp.util.DateUtil;
 
 import java.time.Month;
-import java.util.Arrays;
 
 public class ResumeTestData {
 
@@ -15,11 +14,9 @@ public class ResumeTestData {
     public static Resume createResumeAutomatically(String uuid, String fullName) {
         var resume = new Resume(uuid, fullName);
         resume.addSection(SectionType.PERSONAL, new TextSection("Аналитический склад ума, сильная логика"));
-        resume.addSection(SectionType.OBJECTIVE, new ListSection("Ведущий стажировок и корпоративного обучения","Не заурядная личность"));
-        resume.addSection(SectionType.ACHIEVEMENT, new TextSection("Реализация c нуля Rich Internet Application"));
+        resume.addSection(SectionType.OBJECTIVE, new TextSection("Ведущий стажировок и корпоративного обучения"));
+        resume.addSection(SectionType.ACHIEVEMENT, new ListSection("Реализация c нуля Rich Internet Application"));
         resume.addSection(SectionType.QUALIFICATION, new ListSection("DB: PostgreSQL(наследование, pgplsql"));
-        resume.addSection(SectionType.EXPERIENCE, new ListSection(Arrays.asList("Ведущий программист")));
-        resume.addSection(SectionType.EDUCATION, new ListSection(Arrays.asList("Functional Programming")));
 
         resume.addContact(ContactType.TELEPHONE, "Тел.: +7(921) 855-0482");
         resume.addContact(ContactType.SKYPE, "grigory.kislin");
@@ -36,8 +33,8 @@ public class ResumeTestData {
                         DateUtil.of(2014, Month.OCTOBER), "Java архитектор",
                         "Организация процесса"))));
 
-        resume.addSection(SectionType.EDUCATION, new ListOrganizations(new Organization("Name", "URL",
-                new Organization.Experience(DateUtil.of(1967, Month.DECEMBER), DateUtil.of(
+        resume.addSection(SectionType.EXPERIENCE, new ListOrganizations(new Organization("Name", "URL",
+                    new Organization.Experience(DateUtil.of(1967, Month.DECEMBER), DateUtil.of(
                         2005, Month.AUGUST), "Аспирант", "заочно")),
                 new Organization("RIT Center", null, new Organization.Experience(DateUtil.of(2012, Month.APRIL),
                         DateUtil.of(2014, Month.OCTOBER), "Java архитектор",

@@ -1,7 +1,11 @@
 package com.urise.webapp.model;
 
 import com.urise.webapp.util.DateUtil;
+import com.urise.webapp.util.LocalDateAdapter;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Month;
@@ -12,11 +16,15 @@ import java.util.Objects;
 import static com.urise.webapp.util.DateUtil.NOW;
 import static com.urise.webapp.util.DateUtil.of;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Organization implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private List<Experience> list;
-    private final Link homePage;
+    private Link homePage;
+
+    public Organization() {
+    }
 
     public Organization(Link link, List<Experience> list) {
         Objects.requireNonNull(list, "list : most not be null");
@@ -34,6 +42,10 @@ public class Organization implements Serializable {
 
     public void setList(List<Experience> list) {
         this.list = list;
+    }
+
+    public Link getHomePage() {
+        return homePage;
     }
 
     @Override
@@ -57,13 +69,18 @@ public class Organization implements Serializable {
                 " }";
     }
 
+    @XmlAccessorType(XmlAccessType.FIELD)
     public static class Experience implements Serializable {
         private static final long serialVersionUID = 1L;
-
-        private final LocalDate startDate;
-        private final LocalDate endDate;
+        @XmlJavaTypeAdapter(LocalDateAdapter.class)
+        private LocalDate startDate;
+        @XmlJavaTypeAdapter(LocalDateAdapter.class)
+        private LocalDate endDate;
         private String title;
         private String description;
+
+        public Experience() {
+        }
 
         public Experience(int start, Month month, String title, String description) {
             this(DateUtil.of(start, month), NOW, title, description);
@@ -80,6 +97,14 @@ public class Organization implements Serializable {
             this.description = description;
         }
 
+        public LocalDate getStartDate() {
+            return startDate;
+        }
+
+        public LocalDate getEndDate() {
+            return endDate;
+        }
+
         public String getTitle() {
             return title;
         }
@@ -89,7 +114,7 @@ public class Organization implements Serializable {
         }
 
         public String getDescription() {
-            return description;
+            return description==null?"":description;
         }
 
         public void setDescription(String description) {
