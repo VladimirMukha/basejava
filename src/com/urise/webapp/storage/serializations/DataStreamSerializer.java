@@ -14,54 +14,37 @@ public class DataStreamSerializer implements StrategyInterface {
     @Override
     public void doWrite(Resume resume, OutputStream os) throws IOException {
         try (DataOutputStream dos = new DataOutputStream(os)) {
-            Map<ContactType, String> mapContacts = resume.getMapContacts();
             dos.writeUTF(resume.getUuid());
             dos.writeUTF(resume.getFullName());
 
+            Map<ContactType, String> mapContacts = resume.getMapContacts();
             writeCollections(dos, mapContacts.entrySet(), contacts -> {
                 dos.writeUTF(contacts.getKey().name());
                 dos.writeUTF(contacts.getValue());
             });
 
-//            for (Map.Entry<ContactType, String> contact : mapContacts.entrySet()) {
-//                dos.writeUTF(contact.getKey().name());
-//                dos.writeUTF(contact.getValue());
-//
-//            }
-
-            //    Map<SectionType, AbstractSection> mapSections = resume.getMapSections();
-
-
-//            for (Map.Entry<SectionType, AbstractSection> sectionEntry : mapSections.entrySet()) {
-//                dos.writeUTF(sectionEntry.getKey().name());
-//                SectionType sectionType = sectionEntry.getKey();
-//                AbstractSection section = sectionEntry.getValue();
-
             writeCollections(dos, resume.getMapSections().entrySet(), entry -> {
                 SectionType sectionType = entry.getKey();
                 AbstractSection section = entry.getValue();
+                dos.writeUTF(sectionType.name());
 
                 switch (sectionType) {
                     case PERSONAL:
                     case OBJECTIVE:
                         dos.writeUTF(((TextSection) section).getText());
                         break;
-                    case QUALIFICATION:
                     case ACHIEVEMENT:
+                    case QUALIFICATION:
 
                         writeCollections(dos, ((ListSection) section).getTextContent(), dos::writeUTF);
-
-//                        dos.writeInt(((ListSection) section).getTextContent().size());
-//                        for (String list : ((ListSection) section).getTextContent()) {
-//                            dos.writeUTF(list);
-//                        }
                         break;
                     case EDUCATION:
                     case EXPERIENCE:
-                        writeCollections(dos, ((ListOrganizations) section).getOrganizationList(), s -> {
-                            dos.writeUTF(s.getHomePage().getName());
-                            dos.writeUTF(s.getHomePage().getUrl());
-                            writeCollections(dos, s.getList(), experience -> {
+                        writeCollections(dos, ((ListOrganizations) section).getOrganizationList(), organization -> {
+
+                            dos.writeUTF(organization.getHomePage().getName());
+                            dos.writeUTF(organization.getHomePage().getUrl());
+                            writeCollections(dos, organization.getList(), experience -> {
                                 writeLocalDate(dos, experience.getStartDate());
                                 writeLocalDate(dos, experience.getEndDate());
                                 dos.writeUTF(experience.getTitle());
@@ -69,22 +52,6 @@ public class DataStreamSerializer implements StrategyInterface {
                             });
                         });
                         break;
-
-
-//                        dos.writeInt(((ListOrganizations) section).getOrganizationList().size());
-//                        for (Organization organization : ((ListOrganizations) section).getOrganizationList()) {
-//                            dos.writeUTF(organization.getHomePage().getName());
-//                            dos.writeUTF(organization.getHomePage().getUrl());
-//
-//                            for (Organization.Experience exception : organization.getList()) {
-//                                writeLocalDate(dos, exception.getStartDate());
-//                                writeLocalDate(dos, exception.getEndDate());
-//                                dos.writeUTF(exception.getTitle());
-//                                dos.writeUTF(exception.getDescription());
-//                            }
-//                        }
-
-
                 }
             });
         }
@@ -93,13 +60,6 @@ public class DataStreamSerializer implements StrategyInterface {
     interface WriteElement<T> {
         void write(T element) throws IOException;
 
-    }
-
-    public <T> void writeCollections(DataOutputStream dos, Collection<T> collection, WriteElement<T> element) throws IOException {
-        dos.writeInt(collection.size());
-        for (T elem : collection) {
-            element.write(elem);
-        }
     }
 
     private void writeLocalDate(DataOutputStream dos, LocalDate startDate) throws IOException {
@@ -127,20 +87,21 @@ public class DataStreamSerializer implements StrategyInterface {
         }
     }
 
+
     public AbstractSection getSectionItem(DataInputStream dis, SectionType sectionType) throws IOException {
 
         switch (sectionType) {
             case PERSONAL:
             case OBJECTIVE:
                 return new TextSection(dis.readUTF());
-            case ACHIEVEMENT:
             case QUALIFICATION:
-                return new ListSection(readList(dis, dis::readUTF));
-            case EXPERIENCE:
+            case ACHIEVEMENT:
+                return new ListSection(getList(dis, dis::readUTF));
             case EDUCATION:
+            case EXPERIENCE:
                 return new ListOrganizations(
-                        readList(dis, () -> new Organization(new Link(dis.readUTF(), dis.readUTF()),
-                                readList(dis, () -> new Organization.Experience(
+                        getList(dis, () -> new Organization(new Link(dis.readUTF(), dis.readUTF()),
+                                getList(dis, () -> new Organization.Experience(
                                         readLocalDate(dis), readLocalDate(dis), dis.readUTF(), dis.readUTF()))
                         )));
             default:
@@ -152,6 +113,10 @@ public class DataStreamSerializer implements StrategyInterface {
         void doItems() throws IOException;
     }
 
+    interface ConsumerList<T> {
+        T getList() throws IOException;
+    }
+
     public void readItems(DataInputStream dis, Element element) throws IOException {
         int size = dis.readInt();
         for (int i = 0; i < size; i++) {
@@ -159,16 +124,19 @@ public class DataStreamSerializer implements StrategyInterface {
         }
     }
 
-    interface ConsumerList<T> {
-        T getList() throws IOException;
-    }
-
-    public <T> List<T> readList(DataInputStream dio, ConsumerList<T> consumerList) throws IOException {
+    public <T> List<T> getList(DataInputStream dio, ConsumerList<T> consumerList) throws IOException {
         int size = dio.readInt();
         List<T> list = new ArrayList<>(size);
         for (int i = 0; i < size; i++) {
             list.add(consumerList.getList());
         }
         return list;
+    }
+
+    public <T> void writeCollections(DataOutputStream dos, Collection<T> collection, WriteElement<T> element) throws IOException {
+        dos.writeInt(collection.size());
+        for (T elem : collection) {
+            element.write(elem);
+        }
     }
 }
