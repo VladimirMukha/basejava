@@ -41,9 +41,9 @@ public class DataStreamSerializer implements StrategyInterface {
                     case EDUCATION:
                     case EXPERIENCE:
                         writeCollections(dos, ((ListOrganizations) section).getOrganizationList(), organization -> {
-
-                            dos.writeUTF(organization.getHomePage().getName());
-                            dos.writeUTF(organization.getHomePage().getUrl());
+                            Link homPage = organization.getHomePage();
+                            dos.writeUTF(homPage.getName());
+                            dos.writeUTF(homPage.getUrl());
                             writeCollections(dos, organization.getList(), experience -> {
                                 writeLocalDate(dos, experience.getStartDate());
                                 writeLocalDate(dos, experience.getEndDate());
