@@ -1,23 +1,18 @@
 package com.urise.webapp;
 
 public class MyDedLock {
-    private static final String NAME_ONE = "Вася";
-    private static final String NAME_TWO = "Петя";
 
     public static void main(String[] args) {
-        new Thread(MyDedLock::detLock).start();
-        new Thread(MyDedLock::detLock).start();
+        String lockOne = "lock2";
+        String lokTwo = "lock1";
+        new Thread(()->detLock(lockOne,lokTwo)).start();
+       new Thread(()->detLock(lokTwo,lockOne)).start();
     }
 
-    public static void detLock() {
-        synchronized (NAME_ONE) {
+    public static void detLock(String lockOne,String lockTwo ) {
+        synchronized (lockOne) {
             toWait();
-            synchronized (NAME_TWO) {
-            }
-        }
-        synchronized (NAME_TWO) {
-            toWait();
-            synchronized (NAME_ONE) {
+            synchronized (lockTwo) {
             }
         }
     }
@@ -25,7 +20,7 @@ public class MyDedLock {
     public  static  void toWait() {
         System.out.println(Thread.currentThread().getName());
         try {
-            Thread.currentThread().join();
+           Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
