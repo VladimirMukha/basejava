@@ -1,32 +1,33 @@
 package com.urise.webapp;
 
 public class MyDedLock {
-    public static final MyDedLock LOCK_ONE = new MyDedLock();
-    public static final MyDedLock LOCK_TWO = new MyDedLock();
-    private static int count = 0;
+    private static final String NAME_ONE = "Вася";
+    private static final String NAME_TWO = "Петя";
 
     public static void main(String[] args) {
-        new Thread(LOCK_ONE::decrement).start();
-        new Thread(LOCK_TWO::increment).start();
+        new Thread(MyDedLock::detLock).start();
+        new Thread(MyDedLock::detLock).start();
     }
 
-    public synchronized void increment() {
-        for (int i = 0; i < 100000; i++) {
-            count++;
+    public static void detLock() {
+        synchronized (NAME_ONE) {
+            toWait();
+            synchronized (NAME_TWO) {
+            }
         }
-        System.out.println("I waiting for the LOCK-ONE stream...");
-        synchronized (LOCK_ONE) {
-            System.out.println("Заснул");
+        synchronized (NAME_TWO) {
+            toWait();
+            synchronized (NAME_ONE) {
+            }
         }
     }
 
-    public synchronized void decrement() {
-        for (int i = 100000; i > 0; i--) {
-            count--;
+    public  static  void toWait() {
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-        System.out.println("Im waiting for the LOCK_TWO  stream...");
-        synchronized (LOCK_TWO) {
-            System.out.println("Заснул");
-        }
+        System.out.println("Ждемс...");
     }
 }
