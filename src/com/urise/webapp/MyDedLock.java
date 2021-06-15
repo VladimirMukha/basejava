@@ -23,11 +23,11 @@ public class MyDedLock {
     }
 
     public  static  void toWait() {
+        System.out.println(Thread.currentThread().getName());
         try {
-            Thread.sleep(500);
+            Thread.currentThread().join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("Ждемс...");
     }
 }
