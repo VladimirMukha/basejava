@@ -7,18 +7,14 @@ import java.util.stream.Collectors;
 public class MainStreams {
     public static void main(String[] args) {
         List<Integer> listInt = Arrays.asList(3, 2, 4, 2, 1, 1);
-        int[] integerNumber = {1, 2, 3, 3, 2, 3};
+        int[] integerNumber = {1, 2, 2, 1, 4, 6};
         MainStreams mainStreams = new MainStreams();
         System.out.println(mainStreams.oddOrEven(listInt));
         System.out.println(mainStreams.minValue(integerNumber));
-
     }
 
     private int minValue(int[] values) {
-        return Arrays.stream(values).distinct().sorted().reduce((left, right) -> {
-                    String str = left + "" + right;
-                    return Integer.parseInt(str);
-                }
+        return Arrays.stream(values).distinct().sorted().reduce((left, right) -> left * 10 + right
         ).getAsInt();
     }
 
