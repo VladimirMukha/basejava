@@ -11,16 +11,16 @@ public class MyDedLock {
 
     public static void detLock(String lockOne, String lockTwo) {
         synchronized (lockOne) {
-            System.out.println(Thread.currentThread().getName() + " поток захватил " + lockOne
-                    + " Ожидает объект " + lockTwo);
+            System.out.println(Thread.currentThread().getName() + " Thread captured " + lockOne
+                    + " object wait " + lockTwo);
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             synchronized (lockTwo) {
-                System.out.println(Thread.currentThread().getName() + " захватил " + lockTwo
-                        + " Ожидает объект " + lockOne);
+                System.out.println(Thread.currentThread().getName() + " Thread captured " + lockTwo
+                        + " object wait " + lockOne);
             }
         }
     }
