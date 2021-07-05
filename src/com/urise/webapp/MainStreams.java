@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 public class MainStreams {
     public static void main(String[] args) {
-        List<Integer> listInt = Arrays.asList(3, 2, 4,1,1);
+        List<Integer> listInt = Arrays.asList(3, 2, 4, 1, 1, 3, 1);
         int[] integerNumber = {1, 2, 2, 1, 4, 6};
         System.out.println(oddOrEven(listInt));
         System.out.println(minValue(integerNumber));
