@@ -85,8 +85,8 @@ public class SqlStorage implements Storage {
 
     @Override
     public List<Resume> getAllSorted() {
-        return sqlHelper.getConnection("SELECT * FROM  resume  r \n" +
-                "LEFT JOIN contact c on r.uuid = c.resume_uuid\n " +
+        return sqlHelper.getConnection("SELECT * FROM  resume r " +
+                "LEFT JOIN contact c on r.uuid = c.resume_uuid" +
                 " ORDER BY full_name,uuid", ps -> {
 
             ResultSet resultSet = ps.executeQuery();
@@ -118,7 +118,7 @@ public class SqlStorage implements Storage {
                 "contact (resume_uuid, type, value) " + "VALUES (?,?,?)")) {
             for (Map.Entry<ContactType, String> contact : resume.getMapContacts().entrySet()) {
                 ps.setString(1, resume.getUuid());
-                ps.setString(2, contact.getKey().toString());
+                ps.setString(2, contact.getKey().name());
                 ps.setString(3, contact.getValue());
                 ps.addBatch();
             }
@@ -133,11 +133,9 @@ public class SqlStorage implements Storage {
         }
     }
 
-    public void deleteContact(Connection connection, Resume resume) {
-        sqlHelper.getConnection("DELETE FROM contact WHERE resume_uuid =?", sp -> {
-            sp.setString(1, resume.getUuid());
-            sp.execute();
-            return null;
-        });
+    public void deleteContact(Connection connection, Resume resume) throws SQLException {
+        PreparedStatement ps = connection.prepareStatement("DELETE  FROM contact where resume_uuid=?");
+        ps.setString(1, resume.getUuid());
+        ps.execute();
     }
 }
