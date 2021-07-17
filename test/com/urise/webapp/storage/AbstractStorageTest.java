@@ -1,6 +1,7 @@
 package com.urise.webapp.storage;
 
 import com.urise.webapp.Config;
+import com.urise.webapp.ResumeTestData;
 import com.urise.webapp.exception.ExistStorageException;
 import com.urise.webapp.exception.NotExistStorageException;
 import com.urise.webapp.model.ContactType;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public abstract class AbstractStorageTest {
     protected static File storageDir = Config.getInstance().getStorageDir();
@@ -30,14 +32,10 @@ public abstract class AbstractStorageTest {
     private static final Resume RESUME_4;
 
     static {
-        RESUME_1 = new Resume(UUID_1, "name_1");
+        RESUME_1 = ResumeTestData.createResumeAutomatically(UUID_1,"Resume_1");
         RESUME_2 = new Resume(UUID_2, "name_2");
         RESUME_3 = new Resume(UUID_3, "name_3");
         RESUME_4 = new Resume(UUID_4, "name_4");
-
-        RESUME_1.addContact(ContactType.TELEPHONE,"5246");
-        RESUME_1.addContact(ContactType.HOMEPAGE,"homepage.ru");
-
         RESUME_4.addContact(ContactType.SKYPE,"skype");
         RESUME_4.addContact(ContactType.EMAIL,"@mail.ru");
     }
@@ -79,7 +77,7 @@ public abstract class AbstractStorageTest {
         newResume.addContact(ContactType.TELEPHONE,"534");
         newResume.addContact(ContactType.SKYPE,"skype");
         storage.update(newResume);
-        assertGet(newResume);
+       assertTrue(newResume.equals(storage.get(UUID_1)));
     }
 
     @Test(expected = NotExistStorageException.class)
