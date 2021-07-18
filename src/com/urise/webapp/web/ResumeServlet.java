@@ -48,8 +48,8 @@ public class ResumeServlet extends HttpServlet {
         for (Resume resume : storage.getAllSorted()) {
             writer.write(
                     "<tr>\n" +
-                            "     <td> " + resume.getFullName() + "</td>\n" +
-                            "     <td>" + resume.getUuid() + "</td>\n" +
+                            "     <td> " + resume.getUuid() + "</td>\n" +
+                            "     <td>" + resume.getFullName() + "</td>\n" +
                             "</tr>\n");
         }
         writer.write("</table>\n" +
