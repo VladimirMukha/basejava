@@ -82,7 +82,7 @@ public class SqlStorage implements Storage {
                     addContact(resultSet, resume);
                 }
             }
-            try (PreparedStatement ps = con.prepareStatement("SELECT * FROM sections WHERE resume_uuid=?")) {
+            try (PreparedStatement ps = con.prepareStatement("SELECT * FROM section WHERE resume_uuid=?")) {
                 ps.setString(1, uuid);
                 ResultSet resultSet = ps.executeQuery();
                 while (resultSet.next()) {
@@ -123,7 +123,7 @@ public class SqlStorage implements Storage {
                 }
             }
 
-            try (PreparedStatement ps = con.prepareStatement("SELECT * FROM sections")) {
+            try (PreparedStatement ps = con.prepareStatement("SELECT * FROM section")) {
                 ResultSet resultSet = ps.executeQuery();
                 while (resultSet.next()) {
                     Resume resume = mapResumes.get(resultSet.getString("resume_uuid"));
@@ -156,7 +156,7 @@ public class SqlStorage implements Storage {
     }
 
     public void initSections(Connection con, Resume resume) throws SQLException {
-        try (PreparedStatement ps = con.prepareStatement("INSERT INTO sections (resume_uuid, type, value)VALUES (?,?,?)")) {
+        try (PreparedStatement ps = con.prepareStatement("INSERT INTO section (resume_uuid, type, value)VALUES (?,?,?)")) {
             for (Map.Entry<SectionType, AbstractSection> sections : resume.getMapSections().entrySet()) {
                 ps.setString(1, resume.getUuid());
                 ps.setString(2, sections.getKey().name());
