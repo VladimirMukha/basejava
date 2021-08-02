@@ -189,7 +189,7 @@ public class SqlStorage implements Storage {
     }
 
     public void deleteSections(Connection connection, Resume resume) throws SQLException {
-        deleteItems(connection, resume, "DELETE FROM sections WHERE resume_uuid= ?");
+        deleteItems(connection, resume, "DELETE FROM section WHERE resume_uuid= ?");
     }
 
     public void deleteItems(Connection connection, Resume resume, String sql) throws SQLException {

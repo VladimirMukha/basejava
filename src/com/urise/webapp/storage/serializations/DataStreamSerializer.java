@@ -1,6 +1,6 @@
 package com.urise.webapp.storage.serializations;
 
-import com.urise.webapp.model.*;
+import  com.urise.webapp.model.*;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -35,7 +35,6 @@ public class DataStreamSerializer implements StrategyInterface {
                         break;
                     case ACHIEVEMENT:
                     case QUALIFICATION:
-
                         writeCollections(dos, ((ListSection) section).getTextContent(), dos::writeUTF);
                         break;
                     case EDUCATION:
@@ -59,7 +58,6 @@ public class DataStreamSerializer implements StrategyInterface {
 
     interface WriteElement<T> {
         void write(T element) throws IOException;
-
     }
 
     private void writeLocalDate(DataOutputStream dos, LocalDate startDate) throws IOException {
@@ -86,7 +84,6 @@ public class DataStreamSerializer implements StrategyInterface {
             return resume;
         }
     }
-
 
     public AbstractSection getSectionItem(DataInputStream dis, SectionType sectionType) throws IOException {
 

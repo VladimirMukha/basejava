@@ -1,0 +1,15 @@
+header {
+    background: #b5b9ba;
+    color : #1a1d1a;
+    font-size: 20px;
+    padding: 5px 20px;
+}
+footer{
+background: #131518;
+color: #cacad5;
+font-size : 20px;
+padding:  5px 28px;
+}
+div{
+    min-height:200px ;
+}
