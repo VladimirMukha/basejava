@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class TextSection extends AbstractSection {
     private static final long serialVersionUID = 1L;
-
+    public static final TextSection EMPTY = new TextSection("");
     private String text;
 
     public TextSection() {
@@ -25,9 +25,7 @@ public class TextSection extends AbstractSection {
 
     @Override
     public String toString() {
-        return "TextSection{" +
-                "text='" + text + '\'' +
-                '}';
+        return text;
     }
 
     @Override

@@ -11,13 +11,14 @@ import java.util.Objects;
 public class ListSection extends AbstractSection {
     @Serial
     private static final long serialVersionUID = 1L;
-
+    public static final ListSection EMPTY = new ListSection("");
     private List<String> textContent;
 
     public ListSection() {
     }
 
     public ListSection(List<String> textContent) {
+        Objects.requireNonNull(textContent, "items must not be null");
         this.textContent = textContent;
     }
 
@@ -29,15 +30,9 @@ public class ListSection extends AbstractSection {
         return textContent;
     }
 
-    public void setTextContent(List<String> textContent) {
-        this.textContent = textContent;
-    }
-
     @Override
     public String toString() {
-        return "ListSection{" +
-                "textContent=" + textContent +
-                '}';
+        return textContent + "";
     }
 
     @Override

@@ -17,7 +17,7 @@
             <th>Delete</th>
             <th>Edit</th>
         </tr>
-        <c:forEach var="resume" items="${resumes}">
+        <c:forEach items="${resumes}" var="resume">
             <jsp:useBean id="resume" type="com.urise.webapp.model.Resume"/>
             <tr>
                 <td><a href="resume?uuid=${resume.uuid}&action=view">${resume.fullName}</a></td>
@@ -27,9 +27,11 @@
                 <td><a href="resume?uuid=${resume.uuid}&action=edit">Edit</a></td>
             </tr>
         </c:forEach>
-
     </table>
 </section>
-<jsp:include page="/WEB-INF/jsp/fragments/footer.jsp"/>
+<p><a href="resume?uuid=${resume.uuid}&action=add">Add new Resume</a></p>
 </body>
+<p>
+    <jsp:include page="fragments/footer.jsp"/>
+</p>
 </html>

@@ -19,7 +19,7 @@ import static com.urise.webapp.util.DateUtil.of;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Organization implements Serializable {
     private static final long serialVersionUID = 1L;
-
+    public static Organization EMPTY = new Organization("", "", Experience.EMPTY);
     private List<Experience> list;
     private Link homePage;
 
@@ -64,14 +64,14 @@ public class Organization implements Serializable {
 
     @Override
     public String toString() {
-        return "Organization {  homePage" + homePage +
-                "list=" + list +
-                " }";
+        return homePage +
+                " : " + list;
     }
 
     @XmlAccessorType(XmlAccessType.FIELD)
     public static class Experience implements Serializable {
         private static final long serialVersionUID = 1L;
+        public static Experience EMPTY = new Experience();
         @XmlJavaTypeAdapter(LocalDateAdapter.class)
         private LocalDate startDate;
         @XmlJavaTypeAdapter(LocalDateAdapter.class)
@@ -95,6 +95,11 @@ public class Organization implements Serializable {
             this.endDate = endDate;
             this.title = title;
             this.description = description == null ? "" : description;
+        }
+
+        public Experience(String startDate, String endDate, String title, String description) {
+
+
         }
 
         public LocalDate getStartDate() {
@@ -139,12 +144,9 @@ public class Organization implements Serializable {
 
         @Override
         public String toString() {
-            return "Experience{" +
-                    "startDate=" + startDate +
-                    ", endDate=" + endDate +
-                    ", title='" + title + '\'' +
-                    ", description='" + description + '\'' +
-                    '}';
+            return
+                    startDate + ":" + endDate + " " + title + " " +
+                            description;
         }
     }
 }

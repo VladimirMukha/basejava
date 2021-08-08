@@ -13,11 +13,20 @@ import java.util.UUID;
 @XmlRootElement
 public class Resume implements Serializable {
     private static final long serialVersionUID = 1L;
-
+    public static final Resume EMPTY = new Resume();
     private String uuid;
     private String fullName;
     private final Map<SectionType, AbstractSection> mapSections = new EnumMap<>(SectionType.class);
     private final Map<ContactType, String> mapContacts = new EnumMap<>(ContactType.class);
+
+    static {
+        EMPTY.addSection(SectionType.OBJECTIVE, TextSection.EMPTY);
+        EMPTY.addSection(SectionType.PERSONAL, TextSection.EMPTY);
+        EMPTY.addSection(SectionType.ACHIEVEMENT, ListSection.EMPTY);
+        EMPTY.addSection(SectionType.QUALIFICATION, ListSection.EMPTY);
+        EMPTY.addSection(SectionType.EXPERIENCE, new ListOrganizations(Organization.EMPTY));
+        EMPTY.addSection(SectionType.EDUCATION, new ListOrganizations(Organization.EMPTY));
+    }
 
     public Resume() {
     }
@@ -71,12 +80,8 @@ public class Resume implements Serializable {
 
     @Override
     public String toString() {
-        return "Resume{" +
-                "uuid='" + uuid + '\'' +
-                ", fullName='" + fullName + '\'' +
-                ", mapSections=" + mapSections +
-                ", mapContacts=" + mapContacts +
-                '}';
+        return uuid + " " +
+                fullName + " " + mapSections + " " + mapContacts;
     }
 
     @Override
@@ -93,5 +98,9 @@ public class Resume implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(uuid, fullName, mapSections, mapContacts);
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 }

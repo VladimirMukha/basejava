@@ -1,15 +1,23 @@
 header {
     background: #b5b9ba;
-    color : #1a1d1a;
+    color: #1a1d1a;
     font-size: 20px;
     padding: 5px 20px;
 }
-footer{
-background: #131518;
-color: #cacad5;
-font-size : 20px;
-padding:  5px 28px;
+
+footer {
+    position: fixed; /* Фиксированное положение */
+    left: 0; bottom: 0; /* Левый нижний угол */
+    padding: 10px; /* Поля вокруг текста */
+    background: #39b54a; /* Цвет фона */
+    color: #fff; /* Цвет текста */
+    width: 100%; /* Ширина слоя */
+    background: #131518;
+    color: #cacad5;
+
 }
-div{
-    min-height:200px ;
+
+h2 {
+    margin: 18px 0 10px;
 }
+

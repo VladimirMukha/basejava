@@ -19,7 +19,7 @@
             <%=contactEntry.getKey().toHtml(contactEntry.getValue()) %> </br>
         </c:forEach>
     </p>
-    <h2>Section <a href="resume?uuid=${resume.uuid}&action=edit">Edit</a></h2>
+
     <c:forEach var="sectionEntry" items="${resume.mapSections}">
         <jsp:useBean id="sectionEntry"
                      type="java.util.Map.Entry<com.urise.webapp.model.SectionType,com.urise.webapp.model.AbstractSection>"/>
@@ -73,7 +73,6 @@
                         </tr>
                     </c:forEach>
                 </c:forEach>
-
             </c:when>
         </c:choose>
     </c:forEach>
@@ -81,8 +80,7 @@
         <button onclick="window.history.back()">Назат</button>
     </p>
 </section>
-<p>
-    <jsp:include page="fragments/footer.jsp"/>
-</p>
+<jsp:include page="fragments/footer.jsp"/>
 </body>
+
 </html>

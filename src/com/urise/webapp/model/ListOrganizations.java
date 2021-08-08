@@ -9,7 +9,6 @@ import java.util.Objects;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ListOrganizations extends AbstractSection {
     private static final long serialVersionUID = 1L;
-
     private List<Organization> organizationList;
 
     public ListOrganizations() {
@@ -46,8 +45,6 @@ public class ListOrganizations extends AbstractSection {
 
     @Override
     public String toString() {
-        return "ListOrganizations{" +
-                "organizationList=" + organizationList +
-                '}';
+        return organizationList.toString();
     }
 }
