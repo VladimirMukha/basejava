@@ -12,7 +12,7 @@
 <jsp:include page="fragments/header.jsp"/>
 <section>
     <form method="post" action="resume" enctype="application/x-www-form-urlencoded">
-        <input type="hidden" name="uuid" value= ${resume.uuid}>
+        <input type="hidden" name="uuid" value=${resume.uuid}>
         <dl>
             <dt>Имя</dt>
             <dd><input type="text" name="fullName" size="50" value=${resume.fullName}></dd>
@@ -27,7 +27,7 @@
         <button type="submit">Save</button>
         <button onclick="window.history.back()">Rollback</button>
         <h3>Секции</h3>
-        <c:forEach var="type" items="<%=SectionType.values() %>">
+        <c:forEach var="type" items="<%=SectionType.values()%>">
             <c:set var="section" value="${resume.getSection(type)}"/>
             <jsp:useBean id="section" type="com.urise.webapp.model.AbstractSection"/>
             <h2>${type.title}</h2>

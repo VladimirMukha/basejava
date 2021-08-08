@@ -41,7 +41,6 @@ public class ResumeServlet extends HttpServlet {
             String value = request.getParameter(type.name());
             if (value != null && value.trim().length() != 0) {
                 resume.addContact(type, value);
-                storage.save(resume);
             } else {
                 resume.getMapContacts().remove(type);
             }
