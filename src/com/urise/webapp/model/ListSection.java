@@ -32,7 +32,7 @@ public class ListSection extends AbstractSection {
 
     @Override
     public String toString() {
-        return textContent + "";
+        return textContent.toString().trim();
     }
 
     @Override

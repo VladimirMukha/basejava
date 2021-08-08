@@ -64,8 +64,7 @@ public class Organization implements Serializable {
 
     @Override
     public String toString() {
-        return homePage +
-                " : " + list;
+        return homePage + ":" + list;
     }
 
     @XmlAccessorType(XmlAccessType.FIELD)
@@ -144,8 +143,7 @@ public class Organization implements Serializable {
 
         @Override
         public String toString() {
-            return
-                    startDate + ":" + endDate + " " + title + " " +
+            return startDate + ":" + endDate +":" + title + ":" +
                             description;
         }
     }

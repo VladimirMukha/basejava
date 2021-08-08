@@ -33,21 +33,20 @@
             <h2>${type.title}</h2>
             <c:choose>
                 <c:when test="${type=='OBJECTIVE'}">
-                    <input type="text" name="${type.name()}" size=75 value="<%=section%>>"/>
+                    <input type="text" name="${type.name()}" size=75 value="<%=section%>"/>
                 </c:when>
                 <c:when test="${type=='PERSONAL'}">
                     <input type="text" name="${type.name()}" size="75" value="<%=section%>"/>
                 </c:when>
                 <c:when test="${type=='ACHIEVEMENT'|| type=='QUALIFICATION'}">
-                    <textarea rows="2" name="${type.name()}"
-                              cols=75>   <%=String.join("\n", ((ListSection) section).getTextContent()) %></textarea>
+                    <textarea name='${type}'
+                              cols=75><%=String.join("\n", ((ListSection) section).getTextContent()) %></textarea>
                 </c:when>
                 <c:when test="${type=='EDUCATION'|| type=='EXPERIENCE'}">
-                    <c:forEach var="exp" items="<%= ((ListOrganizations)section).getOrganizationList() %>">
+                    <c:forEach var="exp" items="<%=((ListOrganizations)section).getOrganizationList() %>">
                         <dl>
                             <dt>Имя организации</dt>
                             <dd><input type="text" size="100" name="${type}" value="${exp.homePage.name}"></dd>
-
                             <dt>Сайт организации</dt>
                             <dd><input type="text" size="100" name="${type}" value="${exp.homePage.url}"></dd>
                         </dl>

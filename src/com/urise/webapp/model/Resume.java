@@ -80,8 +80,8 @@ public class Resume implements Serializable {
 
     @Override
     public String toString() {
-        return uuid + " " +
-                fullName + " " + mapSections + " " + mapContacts;
+        return uuid + ":" +
+                fullName + ":" + mapSections + ":" + mapContacts;
     }
 
     @Override
