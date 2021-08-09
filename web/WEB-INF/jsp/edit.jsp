@@ -39,29 +39,29 @@
                     <input type="text" name="${type.name()}" size="75" value="<%=section%>"/>
                 </c:when>
                 <c:when test="${type=='ACHIEVEMENT'|| type=='QUALIFICATION'}">
-                    <textarea name='${type}'
+                    <textarea name='${type.name()}'
                               cols=75><%=String.join("\n", ((ListSection) section).getTextContent()) %></textarea>
                 </c:when>
                 <c:when test="${type=='EDUCATION'|| type=='EXPERIENCE'}">
                     <c:forEach var="exp" items="<%=((ListOrganizations)section).getOrganizationList() %>">
                         <dl>
                             <dt>Имя организации</dt>
-                            <dd><input type="text" size="100" name="${type}" value="${exp.homePage.name}"></dd>
+                            <dd><input type="text" size="75" name="${type}" value="${exp.homePage.name}"></dd>
                             <dt>Сайт организации</dt>
-                            <dd><input type="text" size="100" name="${type}" value="${exp.homePage.url}"></dd>
+                            <dd><input type="text" size="75" name="${type}" value="${exp.homePage.url}"></dd>
                         </dl>
                         <c:forEach var="period" items="${exp.list}">
                             <dl>
                                 <dt>Начало</dt>
-                                <dd><input type="text" name="${type}" size="100" value="${period.startDate}"
+                                <dd><input type="text" name="${type}" size="10" value="${period.startDate}"
                                            placeholder="MM/yyyy"></dd>
                                 <dt>Окончание</dt>
-                                <dd><input type="text" name="${type}" size="100" value="${period.endDate}"
+                                <dd><input type="text" name="${type}" size="10" value="${period.endDate}"
                                            placeholder="MM/yyyy"></dd>
                                 <dt>Должность</dt>
-                                <dd><input type="text" name="${type}" size="100" value="${period.title}"></dd>
+                                <dd><input type="text" name="${type}" size="75" value="${period.title}"></dd>
                                 <dt>Описание</dt>
-                                <dd><input type="text" name="${type}" size="100" value="${period.description}"></dd>
+                                <dd><input type="text" name="${type}" size="75" value="${period.description}"></dd>
                             </dl>
                         </c:forEach>
                     </c:forEach>

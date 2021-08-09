@@ -17,7 +17,10 @@ footer {
 
 }
 
-h2 {
-    margin: 18px 0 10px;
+h2,h3 {
+    margin: 18px 0 5px;
 }
 
+ul{
+    margin: 8px 0 5px;
+}

@@ -38,12 +38,28 @@ public class ResumeServlet extends HttpServlet {
         }
 
         for (ContactType type : ContactType.values()) {
-            String value = request.getParameter(type.name());
-            if (value != null && value.trim().length() != 0) {
-                resume.addContact(type, value);
-            } else {
+            String content = request.getParameter(type.name());
+            if (content != null && content.trim().length() != 0) {
+                resume.addContact(type, content);
+            } else
                 resume.getMapContacts().remove(type);
-            }
+        }
+
+        for (SectionType sectionType : SectionType.values()) {
+            String value = request.getParameter(sectionType.name());
+            if (value != null && value.trim().length() != 0) {
+                switch (sectionType) {
+                    case PERSONAL:
+                    case OBJECTIVE:
+                        resume.addSection(sectionType, new TextSection(value));
+                        break;
+                    case ACHIEVEMENT:
+                    case QUALIFICATION:
+                        resume.addSection(sectionType, new ListSection(value));
+                        break;
+                }
+            } else
+                resume.getMapSections().remove(sectionType);
         }
         if (isCreate) {
             storage.save(resume);

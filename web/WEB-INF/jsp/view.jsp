@@ -27,7 +27,7 @@
         <c:set var="contentSection" value="${sectionEntry.value}"/>
         <jsp:useBean id="contentSection" type="com.urise.webapp.model.AbstractSection"/>
         <tr>
-            <td><h3>${typeSection.title} </h3></td>
+            <td><h3>${typeSection.title}</h3></td>
         </tr>
         <c:choose>
             <c:when test="${typeSection=='OBJECTIVE'|| typeSection=='PERSONAL'}">

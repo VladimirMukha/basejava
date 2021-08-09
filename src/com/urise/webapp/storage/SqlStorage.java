@@ -34,7 +34,7 @@ public class SqlStorage implements Storage {
     @Override
     public void save(Resume resume) {
         sqlHelper.transactionExecute(con -> {
-            try (PreparedStatement ps = con.prepareStatement("INSERT INTO resume (uuid, full_name)" + " VALUES (?,?)")) {
+            try (PreparedStatement ps = con.prepareStatement("INSERT INTO resume (uuid, full_name)VALUES (?,?)")) {
                 ps.setString(1, resume.getUuid());
                 ps.setString(2, resume.getFullName());
                 ps.execute();
