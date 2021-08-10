@@ -1,20 +1,33 @@
 header {
-    background: #666666;
-    font-size: 20px;
-    padding: 5px 20px;
+    /*background: -moz-linear-gradient(#00BBD6, #EBFFFF);*/
+    /*background: -webkit-gradient(linear, 0 0, 0 100%, from( #00BBD6), to(orange));*/
+    background: -webkit-linear-gradient(black,orangered);
+    /*background: -webkit-gradient(linear, 0 0, 0 100%, from(#00BBD6), to(#EBFFFF));*/
+    /*filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00BBD6', endColorstr='#EBFFFF');*/
+    padding:5px 5px 5px;
+    color: #333;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    /*border: 1px solid #666;*/
+    /*background: #666666;*/
+    /*font-size: 20px;*/
+    /*padding: 5px 20px;*/
 }
 
-footer {
+footer{
     position:fixed;
     scroll-behavior: smooth; /* Фиксированное положение */
     left: 0;
     bottom: 0; /* Левый нижний угол */
     padding: 10px; /* Поля вокруг текста */
-    background: #39b54a; /* Цвет фона */
-    color: #fff; /* Цвет текста */
-    width: 100%; /* Ширина слоя */
-    background: #666666;
-    color: #cacad5;
+    background: -webkit-linear-gradient(darkred,black);
+    /*filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00BBD6', endColorstr='#EBFFFF');*/
+    /*background: #39b54a; !* Цвет фона *!*/
+    /*color: #fff; !* Цвет текста *!*/
+   width: 100%;  /* Ширина слоя */
+    /*background: #666666;*/
+    /*color: #cacad5;*/
 
 }
 .button_example{
@@ -29,16 +42,12 @@ ul, li {
 }
 
 button.new {
-
-    background: -moz-linear-gradient(#00BBD6, #EBFFFF);
-    background: -webkit-gradient(linear, 0 0, 0 100%, from(#00BBD6), to(#EBFFFF));
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00BBD6', endColorstr='#EBFFFF');
+    background: -moz-linear-gradient(black,red);
     padding:5px 5px 5px;
-    color: #333;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     border-radius: 5px;
-    border: 1px solid #666;
+   /*border: 2px solid #666;*/
 }
 div {
     scroll-behavior: smooth;

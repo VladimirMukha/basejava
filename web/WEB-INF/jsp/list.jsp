@@ -9,10 +9,10 @@
 </head>
 <body vlink="#87cefa" link="blue" alink="#006400">
 <jsp:include page="/WEB-INF/jsp/fragments/header.jsp"/>
-<section>
-    <table border="10" cellpadding="10" cellspacing="10">
+<img>
+    <table width="60%" style="color: black" border="10" cellpadding="10" cellspacing="10">
         <p>
-            <button class="new"><a aria-setsize="100" style="color:darkorange"
+            <button class="new"><a style="color:orangered "
                                    href="resume?uuid=${resume.uuid}&action=add">Add new Resume</a></button>
         </p>
         <tr>
@@ -32,6 +32,7 @@
             </tr>
         </c:forEach>
     </table>
+   <div> <img aria-orientation="vertical" height="250" width="350"  src="img/3.jpg" alt="nirvanas1994@gmail.com"></div>
 </section>
 <p>
     <jsp:include page="fragments/footer.jsp"/>

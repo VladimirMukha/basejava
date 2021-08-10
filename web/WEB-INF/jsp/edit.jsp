@@ -24,8 +24,8 @@
                 <dd><input type="text" name=${type.name()} size="50" value=${resume.getContact(type)}></dd>
             </dl>
         </c:forEach>
-        <button class="new" type="submit">Save</button>
-        <button class="new" type="reset" onclick="window.history.back()">Rollback</button>
+        <button class="new" type="submit">save</button>
+        <button class="new" type="reset" onclick="window.history.back()">rollback</button>
         <h3>Секции</h3>
         <c:forEach var="type" items="<%=SectionType.values()%>">
             <c:set var="section" value="${resume.getSection(type)}"/>
