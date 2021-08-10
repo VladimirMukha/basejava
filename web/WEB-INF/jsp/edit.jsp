@@ -39,11 +39,12 @@
                     <input type="text" name="${type.name()}" size="75" value="<%=section%>"/>
                 </c:when>
                 <c:when test="${type=='ACHIEVEMENT'|| type=='QUALIFICATION'}">
-                    <textarea name='${type.name()}'
+                    <textarea name='${type.name()}' rows="5"
                               cols=75><%=String.join("\n", ((ListSection) section).getTextContent()) %></textarea>
                 </c:when>
                 <c:when test="${type=='EDUCATION'|| type=='EXPERIENCE'}">
-                    <c:forEach var="exp" items="<%=((ListOrganizations)section).getOrganizationList() %>">
+                    <c:forEach var="exp" items="<%=((ListOrganizations)section).getOrganizationList()%>"
+                               varStatus="counter">
                         <dl>
                             <dt>Имя организации</dt>
                             <dd><input type="text" size="75" name="${type}" value="${exp.homePage.name}"></dd>

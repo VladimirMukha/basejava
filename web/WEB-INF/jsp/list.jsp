@@ -7,10 +7,14 @@
     <link rel="stylesheet" href="css/style.css">
     <title>Список всех резюме</title>
 </head>
-<body vlink="#87cefa" link="#0000cd" alink="#006400">
+<body vlink="#87cefa" link="blue" alink="#006400">
 <jsp:include page="/WEB-INF/jsp/fragments/header.jsp"/>
 <section>
     <table border="10" cellpadding="10" cellspacing="10">
+        <p>
+            <button class="new"><a style="color: #1a1d1a" href="resume?uuid=${resume.uuid}&action=add">Add new
+                Resume</a></button>
+        </p>
         <tr>
             <th>Name</th>
             <th>Email</th>
@@ -29,9 +33,8 @@
         </c:forEach>
     </table>
 </section>
-<p><a href="resume?uuid=${resume.uuid}&action=add">Add new Resume</a></p>
-</body>
 <p>
     <jsp:include page="fragments/footer.jsp"/>
 </p>
+</body>
 </html>

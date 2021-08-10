@@ -1,6 +1,7 @@
 package com.urise.webapp.web;
 
 import com.urise.webapp.Config;
+import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.*;
 import com.urise.webapp.storage.Storage;
 
@@ -28,9 +29,13 @@ public class ResumeServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String uuid = request.getParameter("uuid");
         String fullName = request.getParameter("fullName");
+
         boolean isCreate = (uuid == null || uuid.trim().length() == 0);
         Resume resume;
         if (isCreate) {
+            if (fullName.trim().length() == 0) {
+                throw new StorageException("Is not fulName");
+            }
             resume = new Resume(fullName);
         } else {
             resume = storage.get(uuid);
@@ -55,13 +60,16 @@ public class ResumeServlet extends HttpServlet {
                         break;
                     case ACHIEVEMENT:
                     case QUALIFICATION:
-                        resume.addSection(sectionType, new ListSection(value));
+                        String[] list = value.split("\n");
+                        resume.addSection(sectionType, new ListSection(list));
                         break;
                 }
             } else
                 resume.getMapSections().remove(sectionType);
         }
         if (isCreate) {
+
+
             storage.save(resume);
         } else {
             storage.update(resume);
