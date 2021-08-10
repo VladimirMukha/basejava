@@ -1,7 +1,6 @@
 package com.urise.webapp.web;
 
 import com.urise.webapp.Config;
-import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.*;
 import com.urise.webapp.storage.Storage;
 
@@ -13,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @WebServlet("/resume")
 public class ResumeServlet extends HttpServlet {
@@ -29,50 +30,45 @@ public class ResumeServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String uuid = request.getParameter("uuid");
         String fullName = request.getParameter("fullName");
-
-        boolean isCreate = (uuid == null || uuid.trim().length() == 0);
-        Resume resume;
-        if (isCreate) {
-            if (fullName.trim().length() == 0) {
-                throw new StorageException("Is not fulName");
+        if (fullName != null && fullName.trim().length() != 0) {
+            boolean isCreate = (uuid == null || uuid.trim().length() == 0);
+            Resume resume;
+            if (isCreate) {
+                resume = new Resume(fullName);
+            } else {
+                resume = storage.get(uuid);
+                resume.setFullName(fullName);
             }
-            resume = new Resume(fullName);
-        } else {
-            resume = storage.get(uuid);
-            resume.setFullName(fullName);
-        }
-
-        for (ContactType type : ContactType.values()) {
-            String content = request.getParameter(type.name());
-            if (content != null && content.trim().length() != 0) {
-                resume.addContact(type, content);
-            } else
-                resume.getMapContacts().remove(type);
-        }
-
-        for (SectionType sectionType : SectionType.values()) {
-            String value = request.getParameter(sectionType.name());
-            if (value != null && value.trim().length() != 0) {
-                switch (sectionType) {
-                    case PERSONAL:
-                    case OBJECTIVE:
-                        resume.addSection(sectionType, new TextSection(value));
-                        break;
-                    case ACHIEVEMENT:
-                    case QUALIFICATION:
-                        String[] list = value.split("\n");
-                        resume.addSection(sectionType, new ListSection(list));
-                        break;
-                }
-            } else
-                resume.getMapSections().remove(sectionType);
-        }
-        if (isCreate) {
-
-
-            storage.save(resume);
-        } else {
-            storage.update(resume);
+            for (ContactType type : ContactType.values()) {
+                String content = request.getParameter(type.name());
+                if (content != null && content.trim().length() != 0) {
+                    resume.addContact(type, content);
+                } else
+                    resume.getMapContacts().remove(type);
+            }
+            for (SectionType sectionType : SectionType.values()) {
+                String value = request.getParameter(sectionType.name());
+                if (value != null && value.trim().length() != 0) {
+                    switch (sectionType) {
+                        case PERSONAL:
+                        case OBJECTIVE:
+                            resume.addSection(sectionType, new TextSection(value));
+                            break;
+                        case ACHIEVEMENT:
+                        case QUALIFICATION:
+                            String[] list = value.split("\n");
+                            resume.addSection(sectionType, new ListSection(Arrays.stream(list).
+                                    filter(s -> s.trim().length() != 0).collect(Collectors.toList())));
+                            break;
+                    }
+                } else
+                    resume.getMapSections().remove(sectionType);
+            }
+            if (isCreate) {
+                storage.save(resume);
+            } else {
+                storage.update(resume);
+            }
         }
         response.sendRedirect("resume");
     }

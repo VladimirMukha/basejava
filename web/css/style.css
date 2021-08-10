@@ -5,7 +5,7 @@ header {
 }
 
 footer {
-     position: fixed;
+    position:fixed;
     scroll-behavior: smooth; /* Фиксированное положение */
     left: 0;
     bottom: 0; /* Левый нижний угол */
@@ -29,7 +29,7 @@ ul, li {
 }
 
 button.new {
-    position:  relative;
+
     background: -moz-linear-gradient(#00BBD6, #EBFFFF);
     background: -webkit-gradient(linear, 0 0, 0 100%, from(#00BBD6), to(#EBFFFF));
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00BBD6', endColorstr='#EBFFFF');

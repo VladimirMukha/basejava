@@ -77,8 +77,9 @@
         </c:choose>
     </c:forEach>
     <p>
-        <button onclick="window.history.back()">Назат</button>
+        <button class="new" onclick="window.history.back()">back</button>
     </p>
+    <p>&nbsp</p>
 </section>
 <jsp:include page="fragments/footer.jsp"/>
 </body>
