@@ -12,8 +12,8 @@
 <section>
     <table border="10" cellpadding="10" cellspacing="10">
         <p>
-            <button class="new"><a style="color: #1a1d1a" href="resume?uuid=${resume.uuid}&action=add">Add new
-                Resume</a></button>
+            <button class="new"><a aria-setsize="100" style="color:darkorange"
+                                   href="resume?uuid=${resume.uuid}&action=add">Add new Resume</a></button>
         </p>
         <tr>
             <th>Name</th>
