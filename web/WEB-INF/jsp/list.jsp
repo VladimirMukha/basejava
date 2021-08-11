@@ -12,7 +12,7 @@
 <img>
 <table class="table" width="60%" style="color:orangered" border="12" cellpadding="10" cellspacing="12">
     <p>
-        <button class="new"><a style="color:orangered "
+        <button class="new"><a style="color: black"
                                href="resume?uuid=${resume.uuid}&action=add">Add new Resume</a></button>
     </p>
     <tr>

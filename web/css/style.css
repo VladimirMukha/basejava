@@ -24,7 +24,10 @@ footer {
 }
 
 table.table {
-    background: #333333;
+    /*background: repeating-conic-gradient(#333333,silver);*/
+    /*background: -webkit-focus-ring-color;*/
+    /*background: -ms-linear-gradient(#333333,silver);*/
+    background: linear-gradient(#333333,silver);
 }
 
 div.rightPic {
@@ -45,7 +48,7 @@ ul, li {
 }
 
 button.new {
-    background: -moz-linear-gradient(black, red);
+    background: linear-gradient(to bottom, lightslategray 0%, azure 100%);
     padding: 5px 5px 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
