@@ -96,11 +96,6 @@ public class Organization implements Serializable {
             this.description = description == null ? "" : description;
         }
 
-        public Experience(String startDate, String endDate, String title, String description) {
-
-
-        }
-
         public LocalDate getStartDate() {
             return startDate;
         }
@@ -143,8 +138,8 @@ public class Organization implements Serializable {
 
         @Override
         public String toString() {
-            return startDate + ":" + endDate +":" + title + ":" +
-                            description;
+            return startDate + ":" + endDate + ":" + title + ":" +
+                    description;
         }
     }
 }

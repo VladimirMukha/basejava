@@ -1,10 +1,13 @@
 <%@ page import="com.urise.webapp.model.*" %>
+<%@ page import="com.urise.webapp.util.DateUtil" %>
+<%@ page import="com.urise.webapp.util.HtmlParser" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="short icon" href="img/3.jpg">
     <jsp:useBean id="resume" type="com.urise.webapp.model.Resume" scope="request"/>
     <title>Резюме ${resume.fullName}</title>
 </head>
@@ -53,7 +56,7 @@
                     <tr>
                         <td>
                             <c:choose>
-                                <c:when test="${empty organ.homePage.url }">
+                                <c:when test="${empty organ.homePage.url}">
                                     ${organ.homePage.name}
                                 </c:when>
                                 <c:otherwise>
@@ -63,13 +66,11 @@
                         </td>
                     </tr>
                     <c:forEach var="exp" items="${organ.list}">
+                        <jsp:useBean id="exp" type="com.urise.webapp.model.Organization.Experience"/>
                         <tr>
-                            <td>${exp.startDate}<%=" : " %>
-                                    ${exp.endDate}</td>
-                        </tr>
-                        <tr>
-                            <td>${exp.title}</td>
-                            <td>${exp.description}<br></td
+                            <td><%=HtmlParser.htmlDateHelper(exp)%>
+                            </td>
+                            <td>${exp.title} ${exp.description}<br></td>
                         </tr>
                     </c:forEach>
                 </c:forEach>

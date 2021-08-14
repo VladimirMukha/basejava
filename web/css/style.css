@@ -24,13 +24,10 @@ footer {
 }
 
 table.table {
-    /*background: repeating-conic-gradient(#333333,silver);*/
-    /*background: -webkit-focus-ring-color;*/
-    /*background: -ms-linear-gradient(#333333,silver);*/
-    background: linear-gradient(#333333,silver);
+    background: linear-gradient(#333333, silver);
 }
 
-div.rightPic {
+.rightPic {
     float: right;
     margin: 0 14px 0px 5px;
 }

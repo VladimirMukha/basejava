@@ -3,6 +3,7 @@ package com.urise.webapp.web;
 import com.urise.webapp.Config;
 import com.urise.webapp.model.*;
 import com.urise.webapp.storage.Storage;
+import com.urise.webapp.util.DateUtil;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -31,6 +32,7 @@ public class ResumeServlet extends HttpServlet {
         String uuid = request.getParameter("uuid");
         String fullName = request.getParameter("fullName");
         if (fullName != null && fullName.trim().length() != 0) {
+
             boolean isCreate = (uuid == null || uuid.trim().length() == 0);
             Resume resume;
             if (isCreate) {
@@ -48,6 +50,7 @@ public class ResumeServlet extends HttpServlet {
             }
             for (SectionType sectionType : SectionType.values()) {
                 String value = request.getParameter(sectionType.name());
+                String[] values = request.getParameterValues(sectionType.name());
                 if (value != null && value.trim().length() != 0) {
                     switch (sectionType) {
                         case PERSONAL:
@@ -59,6 +62,30 @@ public class ResumeServlet extends HttpServlet {
                             String[] list = value.split("\n");
                             resume.addSection(sectionType, new ListSection(Arrays.stream(list).
                                     filter(s -> s.trim().length() != 0).collect(Collectors.toList())));
+                            break;
+                        case EDUCATION:
+                        case EXPERIENCE:
+                            List<Organization> listOrganizations = new ArrayList<>();
+                            String[] url = request.getParameterValues(sectionType.name() + "url");
+                            for (int i = 0; i < values.length; i++) {
+                                String name = values[i];
+                                if (name != null) {
+                                    String pref = sectionType.name() + i;
+                                    List<Organization.Experience> experiences = new ArrayList<>();
+                                    String[] startDate = request.getParameterValues(pref + "startDate");
+                                    String[] endDate = request.getParameterValues(pref + "endDate");
+                                    String[] title = request.getParameterValues(pref + "title");
+                                    String[] description = request.getParameterValues(pref + "description");
+                                    for (int j = 0; j < title.length; j++) {
+                                        if (title[j] != null) {
+                                            experiences.add(new Organization.Experience(DateUtil.parser(startDate[j]),
+                                                    DateUtil.parser(endDate[j]), title[j], description[j]));
+                                        }
+                                    }
+                                    listOrganizations.add(new Organization(new Link(name, url[i]), experiences));
+                                }
+                            }
+                            resume.addSection(sectionType, new ListOrganizations(listOrganizations));
                             break;
                     }
                 } else

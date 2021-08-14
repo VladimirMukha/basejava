@@ -1,13 +1,14 @@
 <%@ page import="com.urise.webapp.model.*" %>
+<%@ page import="com.urise.webapp.util.DateUtil" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="short icon" href="img/3.jpg">
     <jsp:useBean id="resume" type="com.urise.webapp.model.Resume" scope="request"/>
     <title> ${resume.fullName}</title>
 </head>
-
 <body>
 <jsp:include page="fragments/header.jsp"/>
 <section>
@@ -49,26 +50,30 @@
                             <dt>Имя организации</dt>
                             <dd><input type="text" size="75" name="${type}" value="${exp.homePage.name}"></dd>
                             <dt>Сайт организации</dt>
-                            <dd><input type="text" size="75" name="${type}" value="${exp.homePage.url}"></dd>
+                            <dd><input type="text" size="75" name="${type}url" value="${exp.homePage.url}"></dd>
                         </dl>
                         <c:forEach var="period" items="${exp.list}">
+                            <jsp:useBean id="period" type="com.urise.webapp.model.Organization.Experience"/>
                             <dl>
                                 <dt>Начало</dt>
-                                <dd><input type="text" name="${type}" size="10" value="${period.startDate}"
-                                           placeholder="MM/yyyy"></dd>
+                                <dd><input type="text" name="${type}${counter.index}startDate" size="10"
+                                           value="<%=DateUtil.format(period.getStartDate())%>"
+                                           placeholder="MM.yyyy"></dd>
                                 <dt>Окончание</dt>
-                                <dd><input type="text" name="${type}" size="10" value="${period.endDate}"
+                                <dd><input type="text" name="${type}${counter.index}endDate" size="10"
+                                           value="<%=DateUtil.format(period.getEndDate())%>"
                                            placeholder="MM/yyyy"></dd>
                                 <dt>Должность</dt>
-                                <dd><input type="text" name="${type}" size="75" value="${period.title}"></dd>
+                                <dd><input type="text" name="${type}${counter.index}title" size="75"
+                                           value="${period.title}"></dd>
                                 <dt>Описание</dt>
-                                <dd><input type="text" name="${type}" size="75" value="${period.description}"></dd>
+                                <dd><input type="text" name="${type}${counter.index}description" size="75"
+                                           value="${period.description}"></dd>
                             </dl>
                         </c:forEach>
                     </c:forEach>
                 </c:when>
             </c:choose>
-
         </c:forEach>
         <button class="new" type="submit">save</button>
         <button class="new" type="reset" onclick="window.history.back()">rollback</button>
