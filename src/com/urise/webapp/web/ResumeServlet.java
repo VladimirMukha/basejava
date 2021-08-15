@@ -4,7 +4,7 @@ import com.urise.webapp.Config;
 import com.urise.webapp.model.*;
 import com.urise.webapp.storage.Storage;
 import com.urise.webapp.util.DateUtil;
-
+import com.urise.webapp.util.HtmlUtil;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -31,9 +31,8 @@ public class ResumeServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String uuid = request.getParameter("uuid");
         String fullName = request.getParameter("fullName");
+        boolean isCreate = (uuid == null || uuid.trim().length() == 0);
         if (fullName != null && fullName.trim().length() != 0) {
-
-            boolean isCreate = (uuid == null || uuid.trim().length() == 0);
             Resume resume;
             if (isCreate) {
                 resume = new Resume(fullName);
@@ -51,7 +50,9 @@ public class ResumeServlet extends HttpServlet {
             for (SectionType sectionType : SectionType.values()) {
                 String value = request.getParameter(sectionType.name());
                 String[] values = request.getParameterValues(sectionType.name());
-                if (value != null && value.trim().length() != 0) {
+                if (HtmlUtil.isEmpty(value) && values.length < 2) {
+                    resume.getMapSections().remove(sectionType);
+                } else {
                     switch (sectionType) {
                         case PERSONAL:
                         case OBJECTIVE:
@@ -69,7 +70,7 @@ public class ResumeServlet extends HttpServlet {
                             String[] url = request.getParameterValues(sectionType.name() + "url");
                             for (int i = 0; i < values.length; i++) {
                                 String name = values[i];
-                                if (name != null) {
+                                if (name != null && name.trim().length() != 0) {
                                     String pref = sectionType.name() + i;
                                     List<Organization.Experience> experiences = new ArrayList<>();
                                     String[] startDate = request.getParameterValues(pref + "startDate");
@@ -77,7 +78,7 @@ public class ResumeServlet extends HttpServlet {
                                     String[] title = request.getParameterValues(pref + "title");
                                     String[] description = request.getParameterValues(pref + "description");
                                     for (int j = 0; j < title.length; j++) {
-                                        if (title[j] != null) {
+                                        if (!HtmlUtil.isEmpty(title[j])) {
                                             experiences.add(new Organization.Experience(DateUtil.parser(startDate[j]),
                                                     DateUtil.parser(endDate[j]), title[j], description[j]));
                                         }
@@ -88,8 +89,7 @@ public class ResumeServlet extends HttpServlet {
                             resume.addSection(sectionType, new ListOrganizations(listOrganizations));
                             break;
                     }
-                } else
-                    resume.getMapSections().remove(sectionType);
+                }
             }
             if (isCreate) {
                 storage.save(resume);

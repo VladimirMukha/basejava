@@ -1,8 +1,9 @@
 <%@ page import="com.urise.webapp.model.*" %>
 <%@ page import="com.urise.webapp.util.DateUtil" %>
-<%@ page import="com.urise.webapp.util.HtmlParser" %>
+<%@ page import="com.urise.webapp.util.HtmlUtil" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -68,7 +69,7 @@
                     <c:forEach var="exp" items="${organ.list}">
                         <jsp:useBean id="exp" type="com.urise.webapp.model.Organization.Experience"/>
                         <tr>
-                            <td><%=HtmlParser.htmlDateHelper(exp)%>
+                            <td><%=HtmlUtil.htmlDateHelper(exp)%>
                             </td>
                             <td>${exp.title} ${exp.description}<br></td>
                         </tr>

@@ -13,10 +13,10 @@
 <jsp:include page="fragments/header.jsp"/>
 <section>
     <form method="post" action="resume" enctype="application/x-www-form-urlencoded">
-        <input type="hidden" name="uuid" value=${resume.uuid}>
+        <input type="hidden" name="uuid" value="${resume.uuid}">
+        <h1>Имя</h1>
         <dl>
-            <dt>Имя</dt>
-            <dd><input type="text" name="fullName" size="50" value=${resume.fullName}></dd>
+            <input type="text" name="fullName" size="50" value="${resume.fullName}">
         </dl>
         <h3>Контакты:</h3>
         <c:forEach var="type" items="<%= ContactType.values()%>">
@@ -40,8 +40,8 @@
                     <input type="text" name="${type.name()}" size="75" value="<%=section%>"/>
                 </c:when>
                 <c:when test="${type=='ACHIEVEMENT'|| type=='QUALIFICATION'}">
-                    <textarea name='${type.name()}' rows="5"
-                              cols=75><%=String.join("\n", ((ListSection) section).getTextContent()) %></textarea>
+                    <textarea name="${type.name()}" rows="5"
+                              cols=75><%=String.join("\n", ((ListSection) section).getTextContent())%></textarea>
                 </c:when>
                 <c:when test="${type=='EDUCATION'|| type=='EXPERIENCE'}">
                     <c:forEach var="exp" items="<%=((ListOrganizations)section).getOrganizationList()%>"
