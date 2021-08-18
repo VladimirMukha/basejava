@@ -1,5 +1,5 @@
 header {
-    background: -webkit-linear-gradient(black, orangered);
+    background: -webkit-linear-gradient(black, darkred,red);
     /*background: -webkit-gradient(linear, 0 0, 0 100%, from(#00BBD6), to(#EBFFFF));*/
     /*filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00BBD6', endColorstr='#EBFFFF');*/
     padding: 5px 5px 5px;
@@ -24,7 +24,7 @@ footer {
 }
 
 table.table {
-    background: linear-gradient(#333333, silver);
+    background: linear-gradient(darkred,black  );
 }
 
 .rightPic {
