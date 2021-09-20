@@ -78,6 +78,7 @@
             </c:when>
         </c:choose>
     </c:forEach>
+    <script>alert("Подтвердите действия")</script>
     <p>
         <button class="new" onclick="window.history.back()">back</button>
     </p>

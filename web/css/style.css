@@ -1,5 +1,5 @@
 header {
-    background: -webkit-linear-gradient(black, darkred,red);
+    background: -webkit-linear-gradient(#b69292, #7ae2b7, #7cc8d2);
     /*background: -webkit-gradient(linear, 0 0, 0 100%, from(#00BBD6), to(#EBFFFF));*/
     /*filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00BBD6', endColorstr='#EBFFFF');*/
     padding: 5px 5px 5px;
@@ -16,7 +16,7 @@ footer {
     left: 0;
     bottom: 0; /* Левый нижний угол */
     padding: 10px; /* Поля вокруг текста */
-    background: -webkit-linear-gradient(darkred, black);
+    background: -webkit-linear-gradient(#dbc8c8, #d7c2c2);
     /*filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00BBD6', endColorstr='#EBFFFF');*/
     /*background: #39b54a; !* Цвет фона *!*/
     /*color: #fff; !* Цвет текста *!*/
@@ -24,7 +24,7 @@ footer {
 }
 
 table.table {
-    background: linear-gradient(darkred,black  );
+    background: linear-gradient(#c8d7ca, #7f8989,mistyrose);
 }
 
 .rightPic {
@@ -45,7 +45,7 @@ ul, li {
 }
 
 button.new {
-    background: linear-gradient(to bottom, lightslategray 0%, azure 100%);
+    background: linear-gradient(to bottom, #5ca1e5 0%, azure 100%);
     padding: 5px 5px 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;

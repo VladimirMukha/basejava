@@ -67,7 +67,7 @@ public class SqlStorage implements Storage {
     public Resume get(String uuid) {
         return sqlHelper.transactionExecute(con -> {
             Resume resume;
-            try (PreparedStatement ps = con.prepareStatement("SELECT * FROM resume WHERE uuid=?")) {
+            try (PreparedStatement ps = con.prepareStatement("SELECT * FROM resume WHERE uuid =?")) {
                 ps.setString(1, uuid);
                 ResultSet resultSet = ps.executeQuery();
                 if (!resultSet.next()) {

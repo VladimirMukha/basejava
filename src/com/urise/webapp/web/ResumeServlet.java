@@ -7,7 +7,6 @@ import com.urise.webapp.util.DateUtil;
 import com.urise.webapp.util.HtmlUtil;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +16,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@WebServlet("/resume")
 public class ResumeServlet extends HttpServlet {
     private Storage storage;
 
